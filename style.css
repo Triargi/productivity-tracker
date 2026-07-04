@@ -860,21 +860,23 @@ body.zen-active {
 /* Subtasks Styles */
 .subtasks-list {
     margin-top: 0.5rem;
-    padding-left: 2rem;
+    padding-left: 0.5rem;
     list-style: none;
     width: 100%;
 }
 .subtask-item {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     gap: 0.5rem;
     font-size: 0.85rem;
     color: var(--text-secondary);
     margin-bottom: 0.25rem;
+    word-break: break-word;
 }
 .subtask-item input[type="checkbox"] {
     accent-color: var(--accent-color);
     cursor: pointer;
+    margin-top: 0.2rem;
 }
 .subtask-item.completed span {
     text-decoration: line-through;
@@ -889,7 +891,8 @@ body.zen-active {
     display: flex;
     align-items: center;
     gap: 0.2rem;
-    margin-left: 2rem;
+    margin-left: 0.5rem;
+    white-space: nowrap;
     margin-top: 0.2rem;
     opacity: 0.7;
     transition: opacity 0.2s;
