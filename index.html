@@ -143,15 +143,11 @@
                     </div>
                 </div>
                 
-                <!-- Journal History -->
-                <div id="journal-history-container" style="margin-bottom: 1.5rem;">
-                    <!-- Journals injected via JS -->
-                </div>
-                
+
                 <form class="task-form" id="task-form">
-                    <input type="text" id="task-input" placeholder="What do you need to do?" autocomplete="off" required style="flex: 2;">
-                    <input type="number" id="task-est" placeholder="Est. 🍅" min="1" max="10" value="1" style="flex: 0.5; text-align: center;">
-                    <input type="text" id="task-category" placeholder="Tag (e.g. Work)" style="flex: 1; text-align: center;" autocomplete="off">
+                    <input type="text" id="task-input" placeholder="What do you need to do?" autocomplete="off" required style="flex: 1; min-width: 150px;">
+                    <input type="number" id="task-est" placeholder="Est. 🍅" min="1" max="10" value="1" style="flex: 0 0 60px; width: 60px; text-align: center;">
+                    <input type="text" id="task-category" placeholder="Tag (e.g. Work)" style="flex: 0 0 100px; width: 100px; text-align: center;" autocomplete="off">
                     <button type="submit" class="add-btn"><i class="ph ph-plus"></i></button>
                 </form>
 
@@ -219,6 +215,13 @@
                         <div class="heatmap-cell" data-level="4"></div>
                         More
                     </div>
+                    </div>
+                </div>
+
+                <!-- Journal History -->
+                <div id="journal-history-container" style="background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255,255,255,0.05); border-radius: 16px; padding: 1.5rem; margin-top: 1.5rem;">
+                    <h3 style="color: var(--text-primary); font-size: 1.1rem; margin-bottom: 1rem;"><i class="ph ph-book-open"></i> Journal Reflections</h3>
+                    <!-- Journals injected via JS -->
                 </div>
             </div>
 

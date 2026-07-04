@@ -394,12 +394,20 @@ body {
     flex: 1;
     overflow-x: auto;
     padding-bottom: 0.5rem;
-    min-height: 400px; /* Ensure columns have height */
+    min-height: 400px;
+}
+
+.kanban-board::-webkit-scrollbar {
+    height: 8px;
+}
+.kanban-board::-webkit-scrollbar-thumb {
+    background: rgba(255,255,255,0.1);
+    border-radius: 10px;
 }
 
 .kanban-column {
     flex: 1;
-    min-width: 260px;
+    min-width: 220px;
     background: rgba(255, 255, 255, 0.02);
     border-radius: 12px;
     border: 1px solid rgba(255, 255, 255, 0.05);

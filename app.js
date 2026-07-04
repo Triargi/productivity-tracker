@@ -837,21 +837,23 @@ function renderTasks() {
         }
         
         li.innerHTML = `
-            <div class="task-content" onclick="setActiveTask('${task.id}', event)" style="flex: 1; display: flex; align-items: flex-start; justify-content: space-between;">
-                <div style="display: flex; flex-direction: column; width: 100%;">
-                    <div style="display: flex; align-items: center; gap: 1rem;">
-                        <div class="checkbox" onclick="toggleTask('${task.id}')"></div>
-                        <div>
-                            ${tagBadge}
-                            <span class="task-text">${escapeHTML(task.text)}</span>
+            <div class="task-content" onclick="setActiveTask('${task.id}', event)" style="flex: 1; display: flex; align-items: flex-start; justify-content: space-between; gap: 0.5rem; overflow: hidden;">
+                <div style="display: flex; flex-direction: column; width: 100%; overflow: hidden;">
+                    <div style="display: flex; align-items: flex-start; gap: 0.75rem;">
+                        <div class="checkbox" onclick="toggleTask('${task.id}')" style="flex-shrink: 0; margin-top: 0.1rem;"></div>
+                        <div style="display: flex; flex-direction: column; gap: 0.25rem; overflow: hidden; flex: 1;">
+                            ${tagBadge ? `<div style="display: flex; flex-wrap: wrap; gap: 0.25rem;">${tagBadge}</div>` : ''}
+                            <span class="task-text" style="word-break: break-word; line-height: 1.3; font-size: 0.95rem;">${escapeHTML(task.text)}</span>
                         </div>
                     </div>
                     ${subtasksHTML}
-                    <button class="add-subtask-btn" onclick="addSubtask('${task.id}', event)"><i class="ph ph-plus"></i> Add Sub-task</button>
+                    <button class="add-subtask-btn" onclick="addSubtask('${task.id}', event)" style="margin-top: 0.5rem;"><i class="ph ph-plus"></i> Add Sub-task</button>
                 </div>
-                <div class="task-actions" style="margin-left: 1rem; align-items: center; display: flex;">${poms}</div>
+                <div class="task-actions" style="flex-shrink: 0; display: flex; flex-direction: column; align-items: center; gap: 0.5rem; margin-left: 0.25rem;">
+                    ${poms}
+                </div>
             </div>
-            <button class="delete-btn" onclick="deleteTask('${task.id}')" aria-label="Delete Task">
+            <button class="delete-btn" onclick="deleteTask('${task.id}')" aria-label="Delete Task" style="flex-shrink: 0; align-self: center;">
                 <i class="ph ph-trash"></i>
             </button>
         `;
