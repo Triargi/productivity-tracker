@@ -3,12 +3,12 @@
   <h1>ProTrack Ultimate</h1>
   <p><strong>A Next-Generation Productivity & Pomodoro Ecosystem</strong></p>
   
-  [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2FTriargi%2Fproductivity-tracker)
+  [![Deploy to Cloudflare Workers](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/Triargi/productivity-tracker)
   [![License: MIT](https://img.shields.io/badge/License-MIT-purple.svg)](https://opensource.org/licenses/MIT)
   [![Vanilla JS](https://img.shields.io/badge/JavaScript-Vanilla-yellow.svg)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
   [![PWA Ready](https://img.shields.io/badge/PWA-Ready-blue.svg)](#)
 
-  [**View Live Demo**](https://productivity-tracker-six-orpin.vercel.app) •
+  [**View Live Demo**](https://productivity-tracker.muhammadtriargi.workers.dev/) •
   [**Report Bug**](#) •
   [**Request Feature**](#)
 </div>
@@ -83,7 +83,7 @@ Since this is a client-side application, you only need a modern web browser (Chr
 
 ## 📱 PWA Installation
 
-1. Open the [Live Demo](https://productivity-tracker-six-orpin.vercel.app) in Google Chrome or Microsoft Edge.
+1. Open the [Live Demo](https://productivity-tracker.muhammadtriargi.workers.dev/) in Google Chrome or Microsoft Edge.
 2. Click the **Install App** icon located in the URL address bar.
 3. ProTrack will now appear as a native application on your device!
 
