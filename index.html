@@ -155,9 +155,20 @@
                     <button type="submit" class="add-btn"><i class="ph ph-plus"></i></button>
                 </form>
 
-                <ul class="task-list" id="task-list">
-                    <!-- Tasks will be injected here -->
-                </ul>
+                <div class="kanban-board">
+                    <div class="kanban-column" id="col-todo" data-status="todo">
+                        <div class="kanban-header">To Do</div>
+                        <ul class="task-list kanban-list" id="list-todo"></ul>
+                    </div>
+                    <div class="kanban-column" id="col-progress" data-status="progress">
+                        <div class="kanban-header">In Progress</div>
+                        <ul class="task-list kanban-list" id="list-progress"></ul>
+                    </div>
+                    <div class="kanban-column" id="col-completed" data-status="completed">
+                        <div class="kanban-header">Completed</div>
+                        <ul class="task-list kanban-list" id="list-completed"></ul>
+                    </div>
+                </div>
             </section>
             </div>
 

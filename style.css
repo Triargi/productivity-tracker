@@ -387,6 +387,45 @@ body {
     background: #9d4edd;
 }
 
+/* Kanban Board */
+.kanban-board {
+    display: flex;
+    gap: 1rem;
+    flex: 1;
+    overflow-x: auto;
+    padding-bottom: 0.5rem;
+    min-height: 400px; /* Ensure columns have height */
+}
+
+.kanban-column {
+    flex: 1;
+    min-width: 260px;
+    background: rgba(255, 255, 255, 0.02);
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    display: flex;
+    flex-direction: column;
+    padding: 0.75rem;
+    transition: background 0.3s;
+}
+
+.kanban-column.drag-over {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: var(--accent-color);
+}
+
+.kanban-header {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    margin-bottom: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-align: center;
+    border-bottom: 1px dashed rgba(255, 255, 255, 0.1);
+    padding-bottom: 0.5rem;
+}
+
 .task-list {
     list-style: none;
     overflow-y: auto;

@@ -45,7 +45,10 @@ const circle = document.querySelector('.progress-ring__circle');
 // Task Elements
 const taskForm = document.getElementById('task-form');
 const taskInput = document.getElementById('task-input');
-const taskList = document.getElementById('task-list');
+const listTodo = document.getElementById('list-todo');
+const listProgress = document.getElementById('list-progress');
+const listCompleted = document.getElementById('list-completed');
+const kanbanColumns = document.querySelectorAll('.kanban-column');
 
 // Stats Elements
 const statTasks = document.getElementById('stat-tasks');
@@ -429,6 +432,11 @@ function toggleTimer() {
         startBtn.classList.add('primary');
         if (ambientPlaying) stopAmbient();
     } else {
+        // Request Notification Permission on first start
+        if ("Notification" in window && Notification.permission !== "granted" && Notification.permission !== "denied") {
+            Notification.requestPermission();
+        }
+        
         startBtn.innerHTML = '<i class="ph ph-pause"></i> Pause';
         startBtn.classList.remove('primary');
         startBtn.classList.add('secondary');
@@ -681,6 +689,14 @@ function playNotification() {
     } catch (e) {
         console.log("Audio not supported or interaction needed first.");
     }
+    
+    // Native Push Notification
+    if ("Notification" in window && Notification.permission === "granted") {
+        new Notification("Pomodoro Complete!", {
+            body: "Time to take a break or start a new session.",
+            icon: "icon_pure.png"
+        });
+    }
 }
 
 // --- Task Logic ---
@@ -725,6 +741,11 @@ function handleDrop(e) {
         const targetIndex = tasks.findIndex(t => t.id === dropTargetId);
         
         if (draggedIndex !== -1 && targetIndex !== -1) {
+            // Also inherit status from target
+            tasks[draggedIndex].status = tasks[targetIndex].status;
+            if (tasks[draggedIndex].status === 'completed') tasks[draggedIndex].completed = true;
+            else tasks[draggedIndex].completed = false;
+            
             const draggedTask = tasks.splice(draggedIndex, 1)[0];
             tasks.splice(targetIndex, 0, draggedTask);
             saveData();
@@ -733,6 +754,40 @@ function handleDrop(e) {
     }
     return false;
 }
+
+// Kanban Column Drop logic
+if (kanbanColumns) {
+    kanbanColumns.forEach(col => {
+        col.addEventListener('dragover', function(e) {
+            e.preventDefault();
+            this.classList.add('drag-over');
+        });
+        col.addEventListener('dragleave', function() {
+            this.classList.remove('drag-over');
+        });
+        col.addEventListener('drop', function(e) {
+            e.stopPropagation();
+            this.classList.remove('drag-over');
+            const newStatus = this.dataset.status;
+            
+            if (draggedTaskId) {
+                const taskIndex = tasks.findIndex(t => t.id === draggedTaskId);
+                if (taskIndex !== -1) {
+                    tasks[taskIndex].status = newStatus;
+                    if (newStatus === 'completed') {
+                        tasks[taskIndex].completed = true;
+                        tasks[taskIndex].completedDate = new Date().toDateString();
+                    } else {
+                        tasks[taskIndex].completed = false;
+                    }
+                    saveData();
+                    renderTasks();
+                }
+            }
+        });
+    });
+}
+
 document.addEventListener('dragend', (e) => {
     if (e.target && e.target.classList) {
         e.target.classList.remove('dragging');
@@ -740,10 +795,12 @@ document.addEventListener('dragend', (e) => {
 });
 
 function renderTasks() {
-    taskList.innerHTML = '';
+    if (listTodo) listTodo.innerHTML = '';
+    if (listProgress) listProgress.innerHTML = '';
+    if (listCompleted) listCompleted.innerHTML = '';
     
-    if (tasks.length === 0) {
-        taskList.innerHTML = '<li style="text-align:center; color:var(--text-secondary); margin-top:2rem;">No tasks yet. Enjoy your day!</li>';
+    if (tasks.length === 0 && listTodo) {
+        listTodo.innerHTML = '<li style="text-align:center; color:var(--text-secondary); margin-top:2rem; font-size: 0.9rem;">No tasks yet.<br>Enjoy your day!</li>';
         return;
     }
 
@@ -799,7 +856,12 @@ function renderTasks() {
             </button>
         `;
         
-        taskList.appendChild(li);
+        
+        const status = task.status || (task.completed ? 'completed' : 'todo');
+        if (status === 'todo' && listTodo) listTodo.appendChild(li);
+        else if (status === 'progress' && listProgress) listProgress.appendChild(li);
+        else if (status === 'completed' && listCompleted) listCompleted.appendChild(li);
+        else if (listTodo) listTodo.appendChild(li);
     });
 }
 
@@ -817,6 +879,7 @@ function addTask(e) {
         estimatedPoms: parseInt(estInput ? estInput.value : 1),
         completedPoms: 0,
         category: catInput ? catInput.value : 'Work',
+        status: 'todo',
         subtasks: []
     };
 
@@ -835,9 +898,9 @@ window.toggleTask = function(id) {
         task.completed = !task.completed;
         if (task.completed) {
             task.completedDate = new Date().toDateString();
-            if (activeTaskId === id) activeTaskId = null;
+            task.status = 'completed';
         } else {
-            delete task.completedDate;
+            task.status = 'todo';
         }
         saveData();
         renderTasks();
