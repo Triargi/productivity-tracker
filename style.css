@@ -268,10 +268,7 @@ body {
 }
 
 .time-left {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    position: relative;
     font-size: 4rem;
     font-weight: 700;
     font-variant-numeric: tabular-nums;
@@ -281,23 +278,22 @@ body {
 .timer-controls {
     display: flex;
     gap: 1rem;
-    width: 100%;
+    justify-content: center;
 }
 
 .control-btn {
-    flex: 1;
-    padding: 1rem;
+    padding: 1rem 1.5rem;
     border: none;
     border-radius: 16px;
     font-family: inherit;
-    font-size: 1.1rem;
+    font-size: 1rem;
     font-weight: 600;
     cursor: pointer;
+    transition: all 0.3s;
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 0.5rem;
-    transition: all 0.3s ease;
 }
 
 .control-btn.primary {
@@ -803,28 +799,7 @@ body.zen-active {
     padding: 0;
     overflow: hidden;
 }
-#zen-mode-btn {
-    position: absolute;
-    top: 1.5rem;
-    right: 1.5rem;
-    background: rgba(255,255,255,0.05);
-    border: 1px solid var(--glass-border);
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--text-secondary);
-    font-size: 1.2rem;
-    cursor: pointer;
-    transition: all 0.3s;
-    z-index: 10;
-}
-#zen-mode-btn:hover {
-    color: var(--accent-color);
-    background: rgba(255,255,255,0.1);
-}
+
 
 /* Heatmap Styles */
 #heatmap-container {
@@ -896,11 +871,16 @@ body.zen-active {
 .add-subtask-btn:hover {
     opacity: 1;
 }
-/ *  
- S o u n d  
- W a v e  
- A n i m  
- * /  
+/ * 
+ 
+ S o u n d 
+ 
+ W a v e 
+ 
+ A n i m 
+ 
+ * / 
+ 
  
 
 .sound-wave {
