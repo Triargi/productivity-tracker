@@ -884,7 +884,7 @@ function renderUpNext() {
     upNextList.innerHTML = '';
     
     // Get up to 5 uncompleted tasks
-    const activeTasks = tasks.filter(t => !t.completed).slice(0, 5);
+    const activeTasks = tasks.filter(t => !t.completed);
     
     if (activeTasks.length === 0) {
         upNextList.innerHTML = '<li style="color: var(--text-secondary); text-align: center; padding: 1rem 0;">All caught up! ✨</li>';
