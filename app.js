@@ -1235,7 +1235,7 @@ const zenBtn = document.getElementById('zen-mode-btn');
 const exitZenBtn = document.getElementById('exit-zen-btn');
 let zenActive = false;
 
-function toggleZenMode() {
+function performZenToggle() {
     zenActive = !zenActive;
     if (zenActive) {
         document.body.classList.add('zen-active');
@@ -1245,6 +1245,16 @@ function toggleZenMode() {
         document.body.classList.remove('zen-active');
         if (zenBtn) zenBtn.innerHTML = '<i class="ph ph-corners-out"></i>';
         if (exitZenBtn) exitZenBtn.style.display = 'none';
+    }
+}
+
+function toggleZenMode() {
+    if (!document.startViewTransition) {
+        performZenToggle();
+    } else {
+        document.startViewTransition(() => {
+            performZenToggle();
+        });
     }
 }
 
