@@ -943,3 +943,19 @@ body.zen-active .time-left {
     text-shadow: 0 0 40px rgba(138, 43, 226, 0.4);
     letter-spacing: -4px;
 }
+
+/* Custom Scrollbar for Up Next List */
+#up-next-list::-webkit-scrollbar {
+    width: 6px;
+}
+#up-next-list::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.02);
+    border-radius: 4px;
+}
+#up-next-list::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+}
+#up-next-list::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
