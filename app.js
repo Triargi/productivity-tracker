@@ -1532,12 +1532,7 @@ function renderGantt() {
 
     wrapper.innerHTML = html;
 }
-/ /  
- N e w  
- D a s h b o a r d  
- W i d g e t s  
- L o g i c  
- 
+
 
 // --- Dashboard Widgets Logic ---
 function initDashboardWidgets() {
