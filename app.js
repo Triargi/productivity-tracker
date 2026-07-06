@@ -397,7 +397,7 @@ function updateTimerDisplay() {
     
     // Draw to PiP Canvas
     const pipCanvas = document.getElementById('pip-canvas');
-    if (pipCanvas && isPipActive) {
+    if (pipCanvas) {
         const ctx = pipCanvas.getContext('2d');
         ctx.fillStyle = '#0f172a'; // bg-color
         ctx.fillRect(0, 0, pipCanvas.width, pipCanvas.height);
@@ -1303,37 +1303,24 @@ if (journalOverlay) {
     });
 }
 
-// --- Picture-in-Picture Logic ---
-const pipBtn = document.getElementById('pip-btn');
+// --- Auto Picture-in-Picture Logic ---
 const pipCanvas = document.getElementById('pip-canvas');
 const pipVideo = document.getElementById('pip-video');
-let isPipActive = false;
 
-if (pipBtn && pipCanvas && pipVideo) {
-    pipBtn.addEventListener('click', async () => {
-        try {
-            if (document.pictureInPictureElement) {
-                await document.exitPictureInPicture();
-                return;
-            }
-            isPipActive = true;
-            updateTimerDisplay(); // Initial draw
-            
-            const stream = pipCanvas.captureStream(30);
-            pipVideo.srcObject = stream;
-            
-            await pipVideo.play();
-            await pipVideo.requestPictureInPicture();
-        } catch (error) {
-            console.error('PiP failed', error);
-            alert('Picture-in-Picture is not supported or failed to start.');
-            isPipActive = false;
-        }
-    });
-
-    pipVideo.addEventListener('leavepictureinpicture', () => {
-        isPipActive = false;
-    });
+if (pipCanvas && pipVideo) {
+    // Always stream canvas to video for auto-PiP
+    try {
+        const stream = pipCanvas.captureStream(30);
+        pipVideo.srcObject = stream;
+        pipVideo.play().catch(e => console.log('PiP video play delayed until interaction', e));
+        
+        // Ensure video plays when user interacts (Start timer)
+        document.getElementById('start-btn').addEventListener('click', () => {
+            pipVideo.play().catch(e => {});
+        });
+    } catch (error) {
+        console.error('Failed to setup Auto PiP', error);
+    }
 }
 
 // --- Service Worker Registration ---
