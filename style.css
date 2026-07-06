@@ -229,6 +229,7 @@ body {
 }
 
 .mode-btn {
+    font-size: 1.3rem;
     background: none;
     border: none;
     color: var(--text-secondary);
