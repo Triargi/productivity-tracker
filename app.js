@@ -1662,23 +1662,51 @@ function startClock() {
 const ambientSoundToggle = document.getElementById('ambient-toggle');
 const ambientSoundSelect = document.getElementById('ambient-select');
 const ytPlayer = document.getElementById('youtube-player');
+let currentAmbientAudio = null;
 
-function updateYouTubePlayer() {
-    if (ambientSoundToggle && ambientSoundToggle.checked) {
-        const videoId = ambientSoundSelect.value;
-        // set src with autoplay
-        ytPlayer.src = "https://www.youtube.com/embed/" + videoId + "?autoplay=1";
-    } else {
-        // stop playback by clearing src
+function updateSoundscape() {
+    // 1. Pause any HTML5 Audio
+    if (currentAmbientAudio) {
+        currentAmbientAudio.pause();
+        currentAmbientAudio.currentTime = 0;
+    }
+    
+    // 2. Stop YouTube Iframe
+    if (ytPlayer) {
         ytPlayer.src = "";
+        ytPlayer.style.display = 'none';
+    }
+
+    // 3. Play selected sound if toggled ON
+    if (ambientSoundToggle && ambientSoundToggle.checked) {
+        const val = ambientSoundSelect.value;
+        
+        if (val.startsWith('audio-')) {
+            // Play HTML5 Audio
+            currentAmbientAudio = document.getElementById(val);
+            if (currentAmbientAudio) {
+                currentAmbientAudio.volume = 0.5;
+                currentAmbientAudio.play().catch(e => {
+                    console.error("Audio blocked:", e);
+                    ambientSoundToggle.checked = false;
+                });
+            }
+        } else {
+            // Play YouTube Iframe (using youtube-nocookie to mitigate Error 150/153 on some browsers)
+            if (ytPlayer) {
+                ytPlayer.style.display = 'block';
+                // Using youtube-nocookie and passing an origin param to help bypass restrictions
+                ytPlayer.src = "https://www.youtube-nocookie.com/embed/" + val + "?autoplay=1&origin=" + encodeURIComponent(window.location.origin || "http://localhost");
+            }
+        }
     }
 }
 
-if (ambientSoundToggle && ambientSoundSelect && ytPlayer) {
-    ambientSoundToggle.addEventListener('change', updateYouTubePlayer);
+if (ambientSoundToggle && ambientSoundSelect) {
+    ambientSoundToggle.addEventListener('change', updateSoundscape);
     ambientSoundSelect.addEventListener('change', () => {
         if (ambientSoundToggle.checked) {
-            updateYouTubePlayer();
+            updateSoundscape();
         }
     });
 }
