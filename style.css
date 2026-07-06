@@ -931,7 +931,7 @@ body.zen-active {
 
 .time-left {
     position: relative;
-    font-size: 6.5rem;
+    font-size: 9rem;
     font-weight: 800;
     font-variant-numeric: tabular-nums;
     text-shadow: 0 0 20px rgba(138, 43, 226, 0.4);

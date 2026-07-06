@@ -428,6 +428,7 @@ function updateTimerDisplay() {
 
 function toggleTimer() {
     if (isRunning) {
+        isRunning = false;
         clearInterval(timerInterval);
         startBtn.innerHTML = '<i class="ph ph-play"></i> Start';
         startBtn.classList.remove('secondary');
@@ -443,6 +444,7 @@ function toggleTimer() {
         startBtn.classList.remove('primary');
         startBtn.classList.add('secondary');
         
+        isRunning = true;
         const ambientToggle = document.getElementById('ambient-toggle');
         if (ambientToggle && ambientToggle.checked) {
             updateSoundscape();
@@ -497,7 +499,7 @@ function toggleTimer() {
             }
         }, 1000);
     }
-    isRunning = !isRunning;
+    
 }
 
 function resetTimer() {
