@@ -59,7 +59,7 @@
         <!-- Main Content -->
         <main class="main-content">
             <!-- Dashboard View -->
-            <div id="view-dashboard" class="view-section active-view" style="display: flex; flex-direction: column; height: 100%; padding-top: 0; overflow: hidden;">
+            <div id="view-dashboard" class="view-section active-view custom-scrollbar" style="display: flex; flex-direction: column; height: 100%; padding-top: 0; overflow-y: auto; overflow-x: hidden;">
                 
                 <!-- Command Center Header -->
                 <header id="dashboard-header" style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 2rem; flex-shrink: 0; padding: 0 0.5rem;">
@@ -73,138 +73,134 @@
                     </div>
                 </header>
 
-                <div style="display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 2rem; flex: 1; min-height: 0;">
+                <div class="bento-grid custom-scrollbar" style="display: grid; grid-template-columns: repeat(12, 1fr); gap: 1.5rem; flex: 1; overflow-y: auto; overflow-x: hidden; padding-right: 0.5rem; padding-bottom: 2rem; align-content: start;">
 
-            <!-- Pomodoro Section -->
-            <section class="pomodoro-section glass-panel custom-scrollbar" style="position: relative; height: 100%; overflow-y: auto; justify-content: flex-start; padding-bottom: 2rem;">
-                <button id="zen-mode-btn" title="Toggle Zen Mode"><i class="ph ph-corners-out"></i></button>
-                <div class="section-header" style="flex-direction: column; gap: 1rem; align-items: stretch; margin-bottom: 2.5rem;">
-                    <h2 style="text-align: center;">Focus Timer</h2>
-                    <div class="timer-modes" style="justify-content: center; background: rgba(0,0,0,0.3);">
-                        <button class="mode-btn active" data-mode="pomodoro">Pomodoro</button>
-                        <button class="mode-btn" data-mode="shortBreak">Short Break</button>
-                        <button class="mode-btn" data-mode="longBreak">Long Break</button>
+                    <!-- 1. Pomodoro Timer Box (span 7) -->
+                    <div class="glass-panel pomodoro-section" style="grid-column: span 7; display: flex; flex-direction: column; padding: 2.5rem; position: relative;">
+                        <button id="zen-mode-btn" title="Toggle Zen Mode" style="position: absolute; top: 1.5rem; right: 1.5rem; background: none; border: none; color: var(--text-secondary); font-size: 1.5rem; cursor: pointer; padding: 0.5rem; border-radius: 8px; transition: all 0.3s;"><i class="ph ph-corners-out"></i></button>
+                        <div class="section-header" style="flex-direction: column; gap: 1rem; align-items: stretch; margin-bottom: 2.5rem;">
+                            <h2 style="text-align: center;">Focus Timer</h2>
+                            <div class="timer-modes" style="justify-content: center; background: rgba(0,0,0,0.3);">
+                                <button class="mode-btn active" data-mode="pomodoro">Pomodoro</button>
+                                <button class="mode-btn" data-mode="shortBreak">Short Break</button>
+                                <button class="mode-btn" data-mode="longBreak">Long Break</button>
+                            </div>
+                        </div>
+                        <div class="timer-display">
+                            <div class="progress-ring-container">
+                                <!-- SVG for progress ring -->
+                                <svg class="progress-ring" width="240" height="240">
+                                    <circle class="progress-ring__circle_bg" stroke="rgba(255,255,255,0.1)" stroke-width="8" fill="transparent" r="110" cx="120" cy="120"/>
+                                    <circle class="progress-ring__circle" stroke="url(#gradient)" stroke-width="8" fill="transparent" r="110" cx="120" cy="120"/>
+                                    <defs>
+                                        <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                            <stop offset="0%" stop-color="#8a2be2" />
+                                            <stop offset="100%" stop-color="#4a00e0" />
+                                        </linearGradient>
+                                    </defs>
+                                </svg>
+                                <div class="time-left" id="time-left">25:00</div>
+                            </div>
+                        </div>
+                        <div class="timer-controls">
+                            <button class="control-btn primary" id="start-btn"><i class="ph ph-play"></i> Start</button>
+                            <button class="control-btn secondary" id="reset-btn"><i class="ph ph-arrow-counter-clockwise"></i> Reset</button>
+                            <button class="control-btn secondary" id="pip-btn" title="Pop-out Timer (Picture-in-Picture)"><i class="ph ph-copy"></i> PiP</button>
+                            <button class="control-btn secondary" id="exit-zen-btn" style="display: none; background: rgba(255,0,0,0.2); color: #ff6b6b;"><i class="ph ph-corners-in"></i> Exit Zen</button>
+                        </div>
+                        
+                        <!-- Hidden elements for PiP Video Stream -->
+                        <canvas id="pip-canvas" width="400" height="400" style="display:none;"></canvas>
+                        <video id="pip-video" muted autoplay style="display:none;"></video>
                     </div>
-                </div>
-                <div class="timer-display">
-                    <div class="progress-ring-container">
-                        <!-- SVG for progress ring -->
-                        <svg class="progress-ring" width="240" height="240">
-                            <circle class="progress-ring__circle_bg" stroke="rgba(255,255,255,0.1)" stroke-width="8" fill="transparent" r="110" cx="120" cy="120"/>
-                            <circle class="progress-ring__circle" stroke="url(#gradient)" stroke-width="8" fill="transparent" r="110" cx="120" cy="120"/>
-                            <defs>
-                                <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                                    <stop offset="0%" stop-color="#8a2be2" />
-                                    <stop offset="100%" stop-color="#4a00e0" />
-                                </linearGradient>
-                            </defs>
-                        </svg>
-                        <div class="time-left" id="time-left">25:00</div>
-                    </div>
-                </div>
-                <div class="timer-controls">
-                    <button class="control-btn primary" id="start-btn"><i class="ph ph-play"></i> Start</button>
-                    <button class="control-btn secondary" id="reset-btn"><i class="ph ph-arrow-counter-clockwise"></i> Reset</button>
-                    <button class="control-btn secondary" id="pip-btn" title="Pop-out Timer (Picture-in-Picture)"><i class="ph ph-copy"></i> PiP</button>
-                    <button class="control-btn secondary" id="exit-zen-btn" style="display: none; background: rgba(255,0,0,0.2); color: #ff6b6b;"><i class="ph ph-corners-in"></i> Exit Zen</button>
-                </div>
-                
-                <!-- Hidden elements for PiP Video Stream -->
-                <canvas id="pip-canvas" width="400" height="400" style="display:none;"></canvas>
-                <video id="pip-video" muted autoplay style="display:none;"></video>
 
-                <div class="ambient-controls" style="margin-top: 1.5rem; width: 100%; border-radius: 12px; padding: 1rem; border: 1px solid var(--glass-border); background: rgba(0,0,0,0.2);">
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
-                        <span style="font-size: 0.9rem; font-weight: 600; color: var(--text-primary);"><i class="ph ph-headphones"></i> Ambient Sounds</span>
-                        <label class="premium-switch" style="transform: scale(0.7); margin: 0;">
-                            <input type="checkbox" id="ambient-toggle">
-                            <span class="premium-slider"></span>
-                        </label>
-                    </div>
-                    <select id="ambient-select" style="width: 100%; background: rgba(255,255,255,0.05); color: var(--text-secondary); border: 1px solid rgba(255,255,255,0.1); padding: 0.5rem; border-radius: 6px; outline: none; cursor: pointer; font-size: 0.85rem; margin-bottom: 1rem;">
-                        <option value="brownNoise" style="background: #1e293b;">Brown Noise (Deep Focus)</option>
-                        <option value="rain" style="background: #1e293b;">Rain & Thunder (Relaxing)</option>
-                        <option value="binaural" style="background: #1e293b;">Binaural Beats (Alpha Waves)</option>
-                    </select>
+                    <!-- 2. Motivation Stack (span 5) -->
+                    <div style="grid-column: span 5; display: flex; flex-direction: column; gap: 1.5rem;">
+                        <!-- Combined Header Widget: One Thing & Focus Tree -->
+                        <div class="glass-panel" style="position: relative; overflow: hidden; display: flex; flex-direction: column; padding: 1.5rem; flex: 1;">
+                            <div style="position: absolute; top: -20px; right: -20px; font-size: 8rem; opacity: 0.03; pointer-events: none;">🎯</div>
+                            
+                            <!-- Today's One Thing -->
+                            <div style="margin-bottom: 1.5rem;">
+                                <h4 style="margin: 0 0 0.5rem 0; color: var(--accent-color); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1.5px; font-weight: 700;">Today's One Thing</h4>
+                                <input type="text" id="one-thing-input" placeholder="What is your main focus today?" style="width: 100%; background: transparent; border: none; border-bottom: 2px solid rgba(255,255,255,0.1); color: var(--text-primary); font-size: 1.1rem; padding: 0.5rem 0; outline: none; transition: border-color 0.3s;" onfocus="this.style.borderColor='var(--accent-color)'" onblur="this.style.borderColor='rgba(255,255,255,0.1)'">
+                            </div>
 
-                    <div style="height: 1px; background: rgba(255,255,255,0.1); margin: 0.5rem 0 1rem 0;"></div>
-
-                    <a href="https://www.youtube.com/watch?v=wsB8ej3Jon4&list=RDwsB8ej3Jon4&start_radio=1" target="_blank" style="display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 0.75rem; border-radius: 12px; text-decoration: none; color: white; background: rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.05); transition: all 0.3s;" onmouseover="this.style.background='rgba(0,0,0,0.6)'; this.style.borderColor='rgba(255,255,255,0.1)'" onmouseout="this.style.background='rgba(0,0,0,0.4)'; this.style.borderColor='rgba(255,255,255,0.05)'">
-                        <div style="display: flex; align-items: center; gap: 1rem;">
-                            <div style="position: relative; flex-shrink: 0;">
-                                <img src="https://img.youtube.com/vi/wsB8ej3Jon4/mqdefault.jpg" alt="Focus Music" style="width: 60px; height: 60px; object-fit: cover; border-radius: 10px; opacity: 0.8;">
-                                <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(255,0,0,0.9); border-radius: 50%; width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 10px rgba(255,0,0,0.5);">
-                                    <i class="ph-fill ph-play" style="color: white; font-size: 0.8rem; margin-left: 2px;"></i>
+                            <!-- Focus Tree Gamification -->
+                            <div id="dashboard-tree-container" style="display: flex; align-items: center; gap: 1rem; padding-top: 1.5rem; border-top: 1px solid rgba(255,255,255,0.05);">
+                                <div id="dashboard-tree-icon" style="font-size: 2.5rem; filter: drop-shadow(0 0 15px rgba(16, 185, 129, 0.4)); transition: all 0.5s;">🌱</div>
+                                <div style="text-align: left;">
+                                    <h4 style="margin: 0; font-size: 1rem; color: var(--text-primary);">Focus Tree</h4>
+                                    <p style="margin: 0; font-size: 0.8rem; color: var(--text-secondary);" id="dashboard-tree-status">Complete Pomodoros to grow your tree!</p>
                                 </div>
                             </div>
-                            <div>
-                                <h4 style="margin: 0; font-size: 0.95rem; font-weight: 600; color: #fff;">Lofi Focus Beat</h4>
-                                <p style="margin: 0.2rem 0 0 0; font-size: 0.75rem; color: var(--text-secondary); display: flex; align-items: center; gap: 4px;"><i class="ph ph-youtube-logo" style="color: #ff0000;"></i> Live Stream</p>
+                        </div>
+
+                        <!-- Mini Weekly Streak -->
+                        <div class="glass-panel" style="padding: 1.5rem;">
+                            <h4 style="margin: 0 0 1rem 0; font-size: 0.9rem; color: var(--text-primary); font-weight: 600; display: flex; justify-content: space-between;">
+                                <span>🔥 Weekly Streak</span>
+                                <span style="color: var(--text-secondary); font-size: 0.8rem; font-weight: normal;">Last 7 Days</span>
+                            </h4>
+                            <div id="weekly-streak-container" style="display: flex; justify-content: space-between; gap: 0.25rem;">
+                                <!-- JS generated streak days -->
                             </div>
                         </div>
-                        <div class="sound-wave" style="margin-right: 0.5rem; opacity: 0.5;">
-                            <div class="bar"></div>
-                            <div class="bar"></div>
-                            <div class="bar"></div>
-                            <div class="bar"></div>
+                    </div>
+
+                    <!-- 3. Atmosphere (Ambient & Lofi) (span 7) -->
+                    <div class="glass-panel" style="grid-column: span 7; display: flex; flex-direction: column; gap: 1rem; padding: 1.5rem;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+                            <span style="font-size: 0.9rem; font-weight: 600; color: var(--text-primary);"><i class="ph ph-headphones"></i> Ambient Sounds & Focus Music</span>
+                            <label class="premium-switch" style="transform: scale(0.7); margin: 0;">
+                                <input type="checkbox" id="ambient-toggle">
+                                <span class="premium-slider"></span>
+                            </label>
                         </div>
-                    </a>
-                </div>
-            </section>
-
-            <!-- Dashboard Right Column (Mini Tasks & Gamification) -->
-            <section class="dashboard-widgets custom-scrollbar" style="display: flex; flex-direction: column; gap: 1.5rem; height: 100%; overflow-y: auto; padding-right: 0.5rem;">
-                
-                
-                <!-- Combined Header Widget: One Thing & Focus Tree -->
-                <div class="glass-panel" style="position: relative; overflow: hidden; display: flex; flex-direction: column; padding: 1.5rem;">
-                    <div style="position: absolute; top: -20px; right: -20px; font-size: 8rem; opacity: 0.03; pointer-events: none;">🎯</div>
-                    
-                    <!-- Today's One Thing -->
-                    <div style="margin-bottom: 1.5rem;">
-                        <h4 style="margin: 0 0 0.5rem 0; color: var(--accent-color); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1.5px; font-weight: 700;">Today's One Thing</h4>
-                        <input type="text" id="one-thing-input" placeholder="What is your main focus today?" style="width: 100%; background: transparent; border: none; border-bottom: 2px solid rgba(255,255,255,0.1); color: var(--text-primary); font-size: 1.1rem; padding: 0.5rem 0; outline: none; transition: border-color 0.3s;" onfocus="this.style.borderColor='var(--accent-color)'" onblur="this.style.borderColor='rgba(255,255,255,0.1)'">
+                        <select id="ambient-select" style="width: 100%; background: rgba(255,255,255,0.05); color: var(--text-secondary); border: 1px solid rgba(255,255,255,0.1); padding: 0.5rem; border-radius: 6px; outline: none; cursor: pointer; font-size: 0.85rem; margin-bottom: 0.5rem;">
+                            <option value="brownNoise" style="background: #1e293b;">Brown Noise (Deep Focus)</option>
+                            <option value="rain" style="background: #1e293b;">Rain & Thunder (Relaxing)</option>
+                            <option value="binaural" style="background: #1e293b;">Binaural Beats (Alpha Waves)</option>
+                        </select>
+                        <a href="https://www.youtube.com/watch?v=wsB8ej3Jon4&list=RDwsB8ej3Jon4&start_radio=1" target="_blank" style="display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 0.75rem; border-radius: 12px; text-decoration: none; color: white; background: rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.05); transition: all 0.3s;" onmouseover="this.style.background='rgba(0,0,0,0.6)'; this.style.borderColor='rgba(255,255,255,0.1)'" onmouseout="this.style.background='rgba(0,0,0,0.4)'; this.style.borderColor='rgba(255,255,255,0.05)'">
+                            <div style="display: flex; align-items: center; gap: 1rem;">
+                                <div style="position: relative; flex-shrink: 0;">
+                                    <img src="https://img.youtube.com/vi/wsB8ej3Jon4/mqdefault.jpg" alt="Focus Music" style="width: 60px; height: 60px; object-fit: cover; border-radius: 10px; opacity: 0.8;">
+                                    <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(255,0,0,0.9); border-radius: 50%; width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 10px rgba(255,0,0,0.5);">
+                                        <i class="ph-fill ph-play" style="color: white; font-size: 0.8rem; margin-left: 2px;"></i>
+                                    </div>
+                                </div>
+                                <div>
+                                    <h4 style="margin: 0; font-size: 0.95rem; font-weight: 600; color: #fff;">Lofi Focus Beat</h4>
+                                    <p style="margin: 0.2rem 0 0 0; font-size: 0.75rem; color: var(--text-secondary); display: flex; align-items: center; gap: 4px;"><i class="ph ph-youtube-logo" style="color: #ff0000;"></i> Live Stream</p>
+                                </div>
+                            </div>
+                            <div class="sound-wave" style="margin-right: 0.5rem; opacity: 0.5;">
+                                <div class="bar"></div>
+                                <div class="bar"></div>
+                                <div class="bar"></div>
+                                <div class="bar"></div>
+                            </div>
+                        </a>
                     </div>
 
-                    <!-- Focus Tree Gamification -->
-                    <div id="dashboard-tree-container" style="display: flex; align-items: center; gap: 1rem; padding-top: 1.5rem; border-top: 1px solid rgba(255,255,255,0.05);">
-                        <div id="dashboard-tree-icon" style="font-size: 2.5rem; filter: drop-shadow(0 0 15px rgba(16, 185, 129, 0.4)); transition: all 0.5s;">🌱</div>
-                        <div style="text-align: left;">
-                            <h4 style="margin: 0; font-size: 1rem; color: var(--text-primary);">Focus Tree</h4>
-                            <p style="margin: 0; font-size: 0.8rem; color: var(--text-secondary);" id="dashboard-tree-status">Complete Pomodoros to grow your tree!</p>
+                    <!-- 4. Up Next Widget (span 5) -->
+                    <div class="glass-panel" style="grid-column: span 5; display: flex; flex-direction: column; padding: 1.5rem; max-height: 250px;">
+                        <div class="section-header" style="margin-bottom: 1rem;">
+                            <h2 style="font-size: 1.2rem;">Up Next</h2>
+                            <a href="#" onclick="document.querySelector('[data-target=\'view-projects\']').click()" style="font-size: 0.8rem; color: var(--accent-color); text-decoration: none;">View All</a>
                         </div>
+                        <ul id="up-next-list" class="custom-scrollbar" style="list-style: none; padding: 0; margin: 0; overflow-y: auto; display: flex; flex-direction: column; gap: 0.5rem; flex: 1;">
+                            <!-- JS will populate this with 3-5 todo tasks -->
+                        </ul>
                     </div>
-                </div>
 
-                <!-- Mini Weekly Streak -->
-                <div class="glass-panel" style="padding: 1.5rem;">
-                    <h4 style="margin: 0 0 1rem 0; font-size: 0.9rem; color: var(--text-primary); font-weight: 600; display: flex; justify-content: space-between;">
-                        <span>🔥 Weekly Streak</span>
-                        <span style="color: var(--text-secondary); font-size: 0.8rem; font-weight: normal;">Last 7 Days</span>
-                    </h4>
-                    <div id="weekly-streak-container" style="display: flex; justify-content: space-between; gap: 0.25rem;">
-                        <!-- JS generated streak days -->
+                    <!-- 5. Quick Brain Dump (span 12) -->
+                    <div class="glass-panel" style="grid-column: span 12; padding: 1.5rem; display: flex; flex-direction: column;">
+                        <h4 style="margin: 0 0 0.5rem 0; font-size: 0.9rem; color: var(--text-primary);"><i class="ph ph-note-pencil"></i> Brain Dump</h4>
+                        <textarea id="brain-dump-input" placeholder="Jot down quick thoughts here so you don't lose focus..." style="width: 100%; background: rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: var(--text-primary); padding: 0.75rem; font-family: inherit; resize: vertical; outline: none; min-height: 80px; transition: border-color 0.3s;" onfocus="this.style.borderColor='var(--accent-color)'" onblur="this.style.borderColor='rgba(255,255,255,0.1)'"></textarea>
                     </div>
-                </div>
 
-                <!-- Up Next Widget -->
-                <div class="glass-panel" style="flex: 1; display: flex; flex-direction: column; max-height: 400px;">
-                    <div class="section-header" style="margin-bottom: 1rem;">
-                        <h2 style="font-size: 1.2rem;">Up Next</h2>
-                        <a href="#" onclick="document.querySelector('[data-target=\'view-projects\']').click()" style="font-size: 0.8rem; color: var(--accent-color); text-decoration: none;">View All</a>
-                    </div>
-                    <ul id="up-next-list" style="list-style: none; padding: 0; margin: 0; overflow-y: auto; display: flex; flex-direction: column; gap: 0.5rem; flex: 1;">
-                        <!-- JS will populate this with 3-5 todo tasks -->
-                    </ul>
-                </div>
-
-                <!-- Quick Brain Dump -->
-                <div class="glass-panel" style="padding: 1.5rem; display: flex; flex-direction: column;">
-                    <h4 style="margin: 0 0 0.5rem 0; font-size: 0.9rem; color: var(--text-primary);"><i class="ph ph-note-pencil"></i> Brain Dump</h4>
-                    <textarea id="brain-dump-input" placeholder="Jot down quick thoughts here so you don't lose focus..." style="width: 100%; background: rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: var(--text-primary); padding: 0.75rem; font-family: inherit; resize: vertical; outline: none; min-height: 80px; transition: border-color 0.3s;" onfocus="this.style.borderColor='var(--accent-color)'" onblur="this.style.borderColor='rgba(255,255,255,0.1)'"></textarea>
-                </div>
-
-            </section>
                 </div> <!-- End of grid -->
             </div>
             
