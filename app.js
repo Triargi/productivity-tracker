@@ -337,6 +337,7 @@ function renderChart() {
 
 // --- Timer Logic ---
 function initCircle() {
+    if (!circle) return;
     const radius = circle.r.baseVal.value;
     const circumference = radius * 2 * Math.PI;
     circle.style.strokeDasharray = `${circumference} ${circumference}`;
@@ -344,6 +345,7 @@ function initCircle() {
 }
 
 function setProgress(percent) {
+    if (!circle) return;
     const radius = circle.r.baseVal.value;
     const circumference = radius * 2 * Math.PI;
     const offset = circumference - (percent / 100) * circumference;

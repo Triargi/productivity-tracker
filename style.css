@@ -72,14 +72,13 @@ body {
 }
 
 .glass-panel {
-    background: var(--glass-bg);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border: 1px solid var(--glass-border);
+    background: rgba(30, 41, 59, 0.4); /* Softer background */
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid rgba(255, 255, 255, 0.05); /* Softer border */
     border-radius: 24px;
     padding: 2rem;
-    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
-    overflow-y: auto;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
     scrollbar-width: none; /* Hide scrollbar Firefox */
     -ms-overflow-style: none; /* Hide scrollbar IE/Edge */
 }
@@ -763,14 +762,13 @@ input:checked + .premium-slider:before {
 
 /* Zen Mode Styles */
 body.zen-active .sidebar,
-body.zen-active .tasks-section,
-body.zen-active #daily-quote-container,
-body.zen-active .ambient-controls,
-body.zen-active .timer-modes,
-body.zen-active #focus-tree-container,
-body.zen-active #journal-history-container {
+body.zen-active .dashboard-bottom-grid,
+body.zen-active #dashboard-header,
+body.zen-active .hero-ambient,
+body.zen-active .hero-modes {
     display: none !important;
 }
+
 body.zen-active .app-container {
     grid-template-columns: 1fr;
     max-width: 100vw;
@@ -778,13 +776,14 @@ body.zen-active .app-container {
     margin: 0;
     padding: 0;
 }
+
 body.zen-active #view-dashboard {
-    grid-template-columns: 1fr;
     display: flex;
     justify-content: center;
     align-items: center;
 }
-body.zen-active .pomodoro-section {
+
+body.zen-active .hero-section {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -793,11 +792,12 @@ body.zen-active .pomodoro-section {
     width: 100%;
     max-width: 600px;
     margin: 0 auto;
-    background: transparent;
-    border: none;
-    box-shadow: none;
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
     transform: scale(1.3);
 }
+
 body.zen-active {
     background: radial-gradient(circle at center, var(--bg-color) 0%, #000 100%);
     padding: 0;
