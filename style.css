@@ -267,13 +267,7 @@ body {
     stroke-linecap: round;
 }
 
-.time-left {
-    position: relative;
-    font-size: 4rem;
-    font-weight: 700;
-    font-variant-numeric: tabular-nums;
-    text-shadow: 0 0 20px var(--accent-glow);
-}
+
 
 .timer-controls {
     display: flex;
@@ -926,4 +920,22 @@ body.zen-active {
     color: #ff6b6b !important;
     border-color: rgba(255, 100, 100, 0.4) !important;
     transform: scale(1.1);
+}
+
+.time-left {
+    position: relative;
+    font-size: 6rem;
+    font-weight: 800;
+    font-variant-numeric: tabular-nums;
+    text-shadow: 0 0 20px rgba(138, 43, 226, 0.4);
+    line-height: 1;
+    letter-spacing: -2px;
+    margin: 0;
+    transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+body.zen-active .time-left {
+    font-size: clamp(8rem, 18vw, 15rem);
+    text-shadow: 0 0 40px rgba(138, 43, 226, 0.4);
+    letter-spacing: -4px;
 }

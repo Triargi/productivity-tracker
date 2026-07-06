@@ -1239,11 +1239,11 @@ function performZenToggle() {
     zenActive = !zenActive;
     if (zenActive) {
         document.body.classList.add('zen-active');
-        if (zenBtn) zenBtn.innerHTML = '<i class="ph ph-corners-in"></i>';
+        
         if (exitZenBtn) exitZenBtn.style.display = 'flex';
     } else {
         document.body.classList.remove('zen-active');
-        if (zenBtn) zenBtn.innerHTML = '<i class="ph ph-corners-out"></i>';
+        
         if (exitZenBtn) exitZenBtn.style.display = 'none';
     }
 }
