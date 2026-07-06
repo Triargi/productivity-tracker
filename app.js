@@ -512,6 +512,7 @@ function resetTimer() {
 }
 
 function changeMode(mode) {
+    if (!mode) return;
     currentMode = mode;
     modeBtns.forEach(btn => {
         btn.classList.toggle('active', btn.dataset.mode === mode);
@@ -672,6 +673,7 @@ function resetTimer() {
 }
 
 function changeMode(mode) {
+    if (!mode) return;
     currentMode = mode;
     modeBtns.forEach(btn => {
         btn.classList.toggle('active', btn.dataset.mode === mode);
