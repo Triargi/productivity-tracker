@@ -76,12 +76,12 @@
 
                 
                 <!-- Hero Section (Top) -->
-                <section class="hero-section glass-panel" >
+                <section class="hero-section glass-panel" style="display: flex; justify-content: space-between; align-items: center; padding: 1.5rem 3rem; margin-bottom: 2rem; border-radius: 32px; position: relative;">
                     <button id="zen-mode-btn" style="position: absolute; top: 1.5rem; right: 1.5rem; background: rgba(255,255,255,0.05); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.1); border-radius: 50%; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; color: var(--text-secondary); font-size: 1.2rem; cursor: pointer; transition: all 0.3s ease; z-index: 10;" title="Full Screen (Zen Mode)" onmouseover="this.style.background='rgba(255,255,255,0.1)'; this.style.color='var(--text-primary)'; this.style.transform='scale(1.1)';" onmouseout="this.style.background='rgba(255,255,255,0.05)'; this.style.color='var(--text-secondary)'; this.style.transform='scale(1)';">
                         <i class="ph ph-corners-out"></i>
                     </button>
                     <!-- Left: Modes -->
-                    <div class="hero-modes" >
+                    <div class="hero-modes" style="flex: 1; display: flex; flex-direction: column; gap: 0.75rem; max-width: 200px;">
                         <button class="mode-btn active" data-mode="pomodoro" style="text-align: left; padding: 0.75rem 1.25rem;"><i class="ph ph-timer"></i> Pomodoro</button>
                         <button class="mode-btn" data-mode="shortBreak" style="text-align: left; padding: 0.75rem 1.25rem;"><i class="ph ph-coffee"></i> Short Break</button>
                         <button class="mode-btn" data-mode="longBreak" style="text-align: left; padding: 0.75rem 1.25rem;"><i class="ph ph-bed"></i> Long Break</button>
@@ -89,9 +89,9 @@
                     </div>
 
                     <!-- Center: Timer -->
-                    <div class="hero-timer" >
+                    <div class="hero-timer" style="flex: 2; display: flex; flex-direction: column; align-items: center; gap: 1.25rem;">
                         <div class="time-left" id="time-left">25:00</div>
-                        <div class="timer-controls" >
+                        <div class="timer-controls" style="display: flex; align-items: center; gap: 1rem;">
                             <button class="control-btn secondary" id="reset-btn" style="border-radius: 50%; width: 44px; height: 44px; padding: 0; display: flex; align-items: center; justify-content: center; background: rgba(255,255,255,0.05); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.1); font-size: 1.2rem;" title="Restart Timer"><i class="ph ph-arrow-counter-clockwise"></i></button>
                             <button class="control-btn primary" id="start-btn" style="padding: 0.8rem 2.5rem; font-size: 1.2rem; border-radius: 60px; box-shadow: 0 8px 32px rgba(138, 43, 226, 0.5); font-weight: 700; letter-spacing: 1px;"><i class="ph ph-play"></i> Start</button>
                             
@@ -130,7 +130,7 @@
                 </section>
                 
                 <!-- Dashboard Bottom Grid (3 Columns) -->
-                <section class="dashboard-bottom-grid" >
+                <section class="dashboard-bottom-grid" style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem;">
                     
                     <!-- Column 1 -->
                     <div style="display: flex; flex-direction: column; gap: 1rem;">
