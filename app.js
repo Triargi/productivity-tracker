@@ -1686,7 +1686,7 @@ function updateSoundscape() {
             // Play HTML5 Audio
             currentAmbientAudio = document.getElementById(val);
             if (currentAmbientAudio) {
-                currentAmbientAudio.volume = 0.5;
+                currentAmbientAudio.volume = 1.0;
                 currentAmbientAudio.play().catch(e => {
                     console.error("Audio blocked:", e);
                     ambientSoundToggle.checked = false;
