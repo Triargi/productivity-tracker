@@ -72,6 +72,7 @@ body {
 }
 
 .glass-panel {
+    box-sizing: border-box;
     background: rgba(30, 41, 59, 0.4); /* Softer background */
     backdrop-filter: blur(24px);
     -webkit-backdrop-filter: blur(24px);
@@ -924,7 +925,7 @@ body.zen-active {
 
 .time-left {
     position: relative;
-    font-size: 8.5rem;
+    font-size: 12rem;
     font-weight: 800;
     font-variant-numeric: tabular-nums;
     text-shadow: 0 0 20px rgba(138, 43, 226, 0.4);
