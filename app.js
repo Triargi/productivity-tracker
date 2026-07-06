@@ -1661,32 +1661,24 @@ function startClock() {
 // --- Ambient Soundscape Logic ---
 const ambientSoundToggle = document.getElementById('ambient-toggle');
 const ambientSoundSelect = document.getElementById('ambient-select');
-let currentAmbientAudio = null;
+const ytPlayer = document.getElementById('youtube-player');
 
-function playAmbientSound() {
-    if (currentAmbientAudio) {
-        currentAmbientAudio.pause();
-        currentAmbientAudio.currentTime = 0;
-    }
-    
+function updateYouTubePlayer() {
     if (ambientSoundToggle && ambientSoundToggle.checked) {
-        const soundType = ambientSoundSelect.value;
-        currentAmbientAudio = document.getElementById('audio-' + soundType);
-        if (currentAmbientAudio) {
-            currentAmbientAudio.volume = 0.5; // default volume
-            currentAmbientAudio.play().catch(e => {
-                console.error("Audio playback blocked by browser. Please interact with the document first.", e);
-                ambientSoundToggle.checked = false; // Turn off toggle if blocked
-            });
-        }
+        const videoId = ambientSoundSelect.value;
+        // set src with autoplay
+        ytPlayer.src = "https://www.youtube.com/embed/" + videoId + "?autoplay=1";
+    } else {
+        // stop playback by clearing src
+        ytPlayer.src = "";
     }
 }
 
-if (ambientSoundToggle && ambientSoundSelect) {
-    ambientSoundToggle.addEventListener('change', playAmbientSound);
+if (ambientSoundToggle && ambientSoundSelect && ytPlayer) {
+    ambientSoundToggle.addEventListener('change', updateYouTubePlayer);
     ambientSoundSelect.addEventListener('change', () => {
         if (ambientSoundToggle.checked) {
-            playAmbientSound();
+            updateYouTubePlayer();
         }
     });
 }
