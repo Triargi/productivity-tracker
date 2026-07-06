@@ -944,18 +944,75 @@ body.zen-active .time-left {
     letter-spacing: -4px;
 }
 
-/* Custom Scrollbar for Up Next List */
-#up-next-list::-webkit-scrollbar {
+
+/* Global Aesthetic Scrollbar */
+::-webkit-scrollbar {
     width: 6px;
+    height: 6px;
 }
-#up-next-list::-webkit-scrollbar-track {
+::-webkit-scrollbar-track {
     background: rgba(255, 255, 255, 0.02);
     border-radius: 4px;
 }
-#up-next-list::-webkit-scrollbar-thumb {
+::-webkit-scrollbar-thumb {
     background: rgba(255, 255, 255, 0.1);
     border-radius: 4px;
 }
-#up-next-list::-webkit-scrollbar-thumb:hover {
+::-webkit-scrollbar-thumb:hover {
     background: rgba(255, 255, 255, 0.2);
+}
+
+.custom-scrollbar::-webkit-scrollbar { display: none; }
+
+
+/* Breathing Glow for Start Button */
+@keyframes breathingGlow {
+    0% { box-shadow: 0 0 15px rgba(138, 43, 226, 0.4); }
+    50% { box-shadow: 0 0 35px rgba(138, 43, 226, 0.8), 0 0 15px rgba(138, 43, 226, 0.5) inset; }
+    100% { box-shadow: 0 0 15px rgba(138, 43, 226, 0.4); }
+}
+
+#start-btn.primary {
+    animation: breathingGlow 3s infinite ease-in-out;
+}
+
+
+/* Seamless Brain Dump */
+#brain-dump-input {
+    background: transparent !important;
+    border-color: transparent !important;
+    transition: all 0.3s ease;
+}
+#brain-dump-input:focus {
+    background: rgba(0,0,0,0.1) !important;
+    border-color: var(--accent-color) !important;
+    box-shadow: 0 0 15px rgba(138, 43, 226, 0.1) inset;
+}
+
+
+/* Glass Shine Sweep Effect */
+.glass-panel {
+    position: relative;
+    overflow: hidden;
+}
+.glass-panel::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.04) 50%, rgba(255,255,255,0) 100%);
+    transform: skewX(-25deg);
+    transition: none;
+    z-index: 1;
+    pointer-events: none;
+}
+.glass-panel:hover::after {
+    animation: shineSweep 1.2s forwards;
+}
+
+@keyframes shineSweep {
+    0% { left: -100%; }
+    100% { left: 200%; }
 }
