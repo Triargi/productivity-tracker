@@ -118,7 +118,7 @@ body {
 .nav-links a {
     text-decoration: none;
     color: var(--text-secondary);
-    font-size: 1.1rem;
+    font-size: 1.2rem;
     padding: 0.75rem 1rem;
     border-radius: 12px;
     display: flex;
@@ -930,7 +930,7 @@ body.zen-active {
 
 .time-left {
     position: relative;
-    font-size: 12rem;
+    font-size: 9.5rem;
     font-weight: 800;
     font-variant-numeric: tabular-nums;
     text-shadow: 0 0 20px rgba(138, 43, 226, 0.4);
