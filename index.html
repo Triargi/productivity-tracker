@@ -59,18 +59,18 @@
         <!-- Main Content -->
         <main class="main-content">
             <!-- Dashboard View -->
-            <div id="view-dashboard" class="view-section active-view" style="display: flex; flex-direction: column; height: 100%; padding-top: 0;">
+            <div id="view-dashboard" class="view-section active-view" style="display: flex; flex-direction: column; height: 100%; padding-top: 0; overflow: hidden;">
                 
                 <!-- Greeting & Quote -->
-                <div id="dashboard-greeting" style="text-align: center; margin-bottom: 1.5rem;">
+                <div id="dashboard-greeting" style="text-align: center; margin-bottom: 1.5rem; flex-shrink: 0;">
                     <h1 style="font-size: 2rem; margin: 0; background: linear-gradient(90deg, #fff, var(--accent-color)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-shadow: 0 0 20px rgba(138, 43, 226, 0.3);" id="greeting-text">Welcome Back!</h1>
                     <p style="color: var(--text-secondary); font-style: italic; margin-top: 0.5rem; font-size: 0.95rem;" id="greeting-quote">"Focus on being productive instead of busy."</p>
                 </div>
 
-                <div style="display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 2rem; flex: 1; overflow-y: auto; padding-right: 0.5rem;" class="custom-scrollbar">
+                <div style="display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 2rem; flex: 1; min-height: 0;">
 
             <!-- Pomodoro Section -->
-            <section class="pomodoro-section glass-panel" style="position: relative;">
+            <section class="pomodoro-section glass-panel" style="position: relative; height: 100%; overflow-y: auto; justify-content: flex-start;">
                 <button id="zen-mode-btn" title="Toggle Zen Mode"><i class="ph ph-corners-out"></i></button>
                 <div class="section-header" style="flex-direction: column; gap: 1rem; align-items: stretch; margin-bottom: 2.5rem;">
                     <h2 style="text-align: center;">Focus Timer</h2>
@@ -147,7 +147,7 @@
             </section>
 
             <!-- Dashboard Right Column (Mini Tasks & Gamification) -->
-            <section class="dashboard-widgets" style="display: flex; flex-direction: column; gap: 1.5rem;">
+            <section class="dashboard-widgets custom-scrollbar" style="display: flex; flex-direction: column; gap: 1.5rem; height: 100%; overflow-y: auto; padding-right: 0.5rem;">
                 
                 
                 <!-- Today's One Thing -->
