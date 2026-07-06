@@ -194,10 +194,9 @@ body {
 }
 
 #view-dashboard {
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    padding-top: 2rem;
+    display: grid;
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+    gap: 2rem;
     height: 100%;
 }
 

@@ -129,6 +129,30 @@
                 </div>
             </section>
 
+            <!-- Dashboard Right Column (Mini Tasks & Gamification) -->
+            <section class="dashboard-widgets" style="display: flex; flex-direction: column; gap: 1.5rem;">
+                
+                <!-- Focus Tree Gamification -->
+                <div id="dashboard-tree-container" class="glass-panel" style="text-align: center; display: flex; align-items: center; justify-content: center; gap: 1rem; padding: 1.5rem;">
+                    <div id="dashboard-tree-icon" style="font-size: 3rem; filter: drop-shadow(0 0 15px rgba(16, 185, 129, 0.4)); transition: all 0.5s;">🌱</div>
+                    <div style="text-align: left;">
+                        <h4 style="margin: 0; font-size: 1.1rem; color: var(--text-primary);">Focus Tree</h4>
+                        <p style="margin: 0; font-size: 0.85rem; color: var(--text-secondary);" id="dashboard-tree-status">Complete Pomodoros to grow your tree!</p>
+                    </div>
+                </div>
+
+                <!-- Up Next Widget -->
+                <div class="glass-panel" style="flex: 1; display: flex; flex-direction: column; max-height: 400px;">
+                    <div class="section-header" style="margin-bottom: 1rem;">
+                        <h2 style="font-size: 1.2rem;">Up Next</h2>
+                        <a href="#" onclick="document.querySelector('[data-target=\'view-projects\']').click()" style="font-size: 0.8rem; color: var(--accent-color); text-decoration: none;">View All</a>
+                    </div>
+                    <ul id="up-next-list" style="list-style: none; padding: 0; margin: 0; overflow-y: auto; display: flex; flex-direction: column; gap: 0.5rem; flex: 1;">
+                        <!-- JS will populate this with 3-5 todo tasks -->
+                    </ul>
+                </div>
+            </section>
+
             </div>
             
             <!-- Project Hub View -->
@@ -145,15 +169,6 @@
                         <div class="section-header" style="margin-bottom: 1rem;">
                             <h2>Tasks for Today</h2>
                             <span class="date-display" id="current-date">Loading...</span>
-                        </div>
-                        
-                        <!-- Focus Tree Gamification -->
-                        <div id="focus-tree-container" style="background: rgba(255,255,255,0.02); border: 1px dashed rgba(255,255,255,0.1); border-radius: 12px; padding: 1rem; text-align: center; margin-bottom: 1.5rem; display: flex; align-items: center; justify-content: center; gap: 1rem;">
-                            <div id="focus-tree-icon" style="font-size: 2.5rem; filter: drop-shadow(0 0 10px rgba(16, 185, 129, 0.4)); transition: all 0.5s;">🌱</div>
-                            <div style="text-align: left;">
-                                <h4 style="margin: 0; font-size: 0.95rem; color: var(--text-primary);">Focus Tree</h4>
-                                <p style="margin: 0; font-size: 0.8rem; color: var(--text-secondary);" id="focus-tree-status">Complete Pomodoros to grow your tree!</p>
-                            </div>
                         </div>
                         
                         <form class="task-form" id="task-form">
