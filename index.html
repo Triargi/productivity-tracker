@@ -29,7 +29,8 @@
                 <span>ProTrack</span>
             </div>
             <nav class="nav-links">
-                <a href="#" class="active nav-link" data-target="view-dashboard"><i class="ph ph-squares-four"></i> Dashboard</a>
+                <a href="#" class="nav-link" data-target="view-dashboard"><i class="ph ph-squares-four"></i> Dashboard</a>
+                <a href="#" class="nav-link" data-target="view-projects"><i class="ph ph-kanban"></i> Project Hub</a>
                 <a href="#" class="nav-link" data-target="view-statistics"><i class="ph ph-chart-bar"></i> Statistics</a>
                 <a href="#" class="nav-link" data-target="view-settings"><i class="ph ph-gear"></i> Settings</a>
             </nav>
@@ -128,45 +129,66 @@
                 </div>
             </section>
 
-            <!-- Tasks Section -->
-            <section class="tasks-section glass-panel">
-                <div class="section-header">
-                    <h2>Tasks for Today</h2>
-                    <span class="date-display" id="current-date">Loading...</span>
+            </div>
+            
+            <!-- Project Hub View -->
+            <div id="view-projects" class="view-section hidden-view glass-panel" style="display: flex; flex-direction: column; height: 100%;">
+                
+                <div style="display: flex; gap: 1rem; margin-bottom: 1.5rem; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 1rem;">
+                    <button class="mode-btn active" id="tab-kanban" style="padding: 0.5rem 1.5rem; border-radius: 8px;">Kanban Board</button>
+                    <button class="mode-btn" id="tab-gantt" style="padding: 0.5rem 1.5rem; border-radius: 8px; opacity: 0.7;">Gantt Chart</button>
+                </div>
+
+                <div id="project-kanban-container" style="display: flex; flex-direction: column; flex: 1; overflow: hidden;">
+                    <!-- Tasks Section -->
+                    <section class="tasks-section" style="display: flex; flex-direction: column; flex: 1; background: transparent; border: none; box-shadow: none; padding: 0;">
+                        <div class="section-header" style="margin-bottom: 1rem;">
+                            <h2>Tasks for Today</h2>
+                            <span class="date-display" id="current-date">Loading...</span>
+                        </div>
+                        
+                        <!-- Focus Tree Gamification -->
+                        <div id="focus-tree-container" style="background: rgba(255,255,255,0.02); border: 1px dashed rgba(255,255,255,0.1); border-radius: 12px; padding: 1rem; text-align: center; margin-bottom: 1.5rem; display: flex; align-items: center; justify-content: center; gap: 1rem;">
+                            <div id="focus-tree-icon" style="font-size: 2.5rem; filter: drop-shadow(0 0 10px rgba(16, 185, 129, 0.4)); transition: all 0.5s;">🌱</div>
+                            <div style="text-align: left;">
+                                <h4 style="margin: 0; font-size: 0.95rem; color: var(--text-primary);">Focus Tree</h4>
+                                <p style="margin: 0; font-size: 0.8rem; color: var(--text-secondary);" id="focus-tree-status">Complete Pomodoros to grow your tree!</p>
+                            </div>
+                        </div>
+                        
+                        <form class="task-form" id="task-form">
+                            <input type="text" id="task-input" placeholder="What do you need to do?" autocomplete="off" required style="flex: 1; min-width: 150px;">
+                            <input type="date" id="task-due-date" style="flex: 0 0 130px; width: 130px; text-align: center; color: var(--text-secondary);" title="Due Date">
+                            <input type="number" id="task-est" placeholder="Est. 🍅" min="1" max="10" value="1" style="flex: 0 0 60px; width: 60px; text-align: center;">
+                            <input type="text" id="task-category" placeholder="Tag (e.g. Work)" style="flex: 0 0 100px; width: 100px; text-align: center;" autocomplete="off">
+                            <button type="submit" class="add-btn"><i class="ph ph-plus"></i></button>
+                        </form>
+
+                        <div class="kanban-board">
+                            <div class="kanban-column" id="col-todo" data-status="todo">
+                                <div class="kanban-header">To Do</div>
+                                <ul class="task-list kanban-list" id="list-todo"></ul>
+                            </div>
+                            <div class="kanban-column" id="col-progress" data-status="progress">
+                                <div class="kanban-header">In Progress</div>
+                                <ul class="task-list kanban-list" id="list-progress"></ul>
+                            </div>
+                            <div class="kanban-column" id="col-completed" data-status="completed">
+                                <div class="kanban-header">Completed</div>
+                                <ul class="task-list kanban-list" id="list-completed"></ul>
+                            </div>
+                        </div>
+                    </section>
                 </div>
                 
-                <!-- Focus Tree Gamification -->
-                <div id="focus-tree-container" style="background: rgba(255,255,255,0.02); border: 1px dashed rgba(255,255,255,0.1); border-radius: 12px; padding: 1rem; text-align: center; margin-bottom: 1.5rem; display: flex; align-items: center; justify-content: center; gap: 1rem;">
-                    <div id="focus-tree-icon" style="font-size: 2.5rem; filter: drop-shadow(0 0 10px rgba(16, 185, 129, 0.4)); transition: all 0.5s;">🌱</div>
-                    <div style="text-align: left;">
-                        <h4 style="margin: 0; font-size: 0.95rem; color: var(--text-primary);">Focus Tree</h4>
-                        <p style="margin: 0; font-size: 0.8rem; color: var(--text-secondary);" id="focus-tree-status">Complete Pomodoros to grow your tree!</p>
+                <div id="project-gantt-container" style="display: none; flex-direction: column; flex: 1; overflow: auto;">
+                    <div class="section-header">
+                        <h2>Gantt Timeline</h2>
+                    </div>
+                    <div id="gantt-chart-wrapper" style="position: relative; min-height: 400px; width: 100%; border: 1px solid rgba(255,255,255,0.05); border-radius: 12px; padding: 1rem; overflow-x: auto;">
+                        <!-- Gantt Chart rendered via JS -->
                     </div>
                 </div>
-                
-
-                <form class="task-form" id="task-form">
-                    <input type="text" id="task-input" placeholder="What do you need to do?" autocomplete="off" required style="flex: 1; min-width: 150px;">
-                    <input type="number" id="task-est" placeholder="Est. 🍅" min="1" max="10" value="1" style="flex: 0 0 60px; width: 60px; text-align: center;">
-                    <input type="text" id="task-category" placeholder="Tag (e.g. Work)" style="flex: 0 0 100px; width: 100px; text-align: center;" autocomplete="off">
-                    <button type="submit" class="add-btn"><i class="ph ph-plus"></i></button>
-                </form>
-
-                <div class="kanban-board">
-                    <div class="kanban-column" id="col-todo" data-status="todo">
-                        <div class="kanban-header">To Do</div>
-                        <ul class="task-list kanban-list" id="list-todo"></ul>
-                    </div>
-                    <div class="kanban-column" id="col-progress" data-status="progress">
-                        <div class="kanban-header">In Progress</div>
-                        <ul class="task-list kanban-list" id="list-progress"></ul>
-                    </div>
-                    <div class="kanban-column" id="col-completed" data-status="completed">
-                        <div class="kanban-header">Completed</div>
-                        <ul class="task-list kanban-list" id="list-completed"></ul>
-                    </div>
-                </div>
-            </section>
             </div>
 
             <!-- Statistics View -->
