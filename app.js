@@ -432,7 +432,7 @@ function toggleTimer() {
         startBtn.innerHTML = '<i class="ph ph-play"></i> Start';
         startBtn.classList.remove('secondary');
         startBtn.classList.add('primary');
-        if (ambientPlaying) stopAmbient();
+        updateSoundscape();
     } else {
         // Request Notification Permission on first start
         if ("Notification" in window && Notification.permission !== "granted" && Notification.permission !== "denied") {
@@ -445,7 +445,7 @@ function toggleTimer() {
         
         const ambientToggle = document.getElementById('ambient-toggle');
         if (ambientToggle && ambientToggle.checked) {
-            playAmbient(document.getElementById('ambient-select').value);
+            updateSoundscape();
         }
         
         timerInterval = setInterval(() => {
@@ -508,7 +508,7 @@ function resetTimer() {
     startBtn.classList.remove('secondary');
     startBtn.classList.add('primary');
     updateTimerDisplay();
-    if (ambientPlaying) stopAmbient();
+    updateSoundscape();
 }
 
 function changeMode(mode) {
@@ -1116,7 +1116,7 @@ const commands = [
     { label: 'Go to Dashboard', action: () => navLinks[0].click() },
     { label: 'Go to Statistics', action: () => navLinks[1].click() },
     { label: 'Go to Settings', action: () => navLinks[2].click() },
-    { label: 'Toggle Ambient Sound', action: () => { const t = document.getElementById('ambient-toggle'); if(t) { t.checked = !t.checked; if(t.checked) playAmbient(document.getElementById('ambient-select').value); else stopAmbient(); } } },
+    { label: 'Toggle Ambient Sound', action: () => { const t = document.getElementById('ambient-toggle'); if(t) { t.checked = !t.checked; if(t.checked) updateSoundscape(); else stopAmbient(); } } },
     { label: 'Add Task', action: () => { navLinks[0].click(); setTimeout(() => document.getElementById('task-input').focus(), 100); } }
 ];
 
@@ -1661,7 +1661,6 @@ function startClock() {
 // --- Ambient Soundscape Logic ---
 const ambientSoundToggle = document.getElementById('ambient-toggle');
 const ambientSoundSelect = document.getElementById('ambient-select');
-const ytPlayer = document.getElementById('youtube-player');
 let currentAmbientAudio = null;
 
 function updateSoundscape() {
@@ -1671,14 +1670,14 @@ function updateSoundscape() {
         currentAmbientAudio.currentTime = 0;
     }
     
-    // 2. Stop YouTube Iframe
-    if (ytPlayer) {
-        ytPlayer.src = "";
-        ytPlayer.style.display = 'none';
+    // 2. Hide YouTube Cover
+    const ytCover = document.getElementById('youtube-cover');
+    if (ytCover) {
+        ytCover.style.display = 'none';
     }
 
-    // 3. Play selected sound if toggled ON
-    if (ambientSoundToggle && ambientSoundToggle.checked) {
+    // 3. Play selected sound if toggled ON AND Timer is Running
+    if (ambientSoundToggle && ambientSoundToggle.checked && isRunning) {
         const val = ambientSoundSelect.value;
         
         if (val.startsWith('audio-')) {
@@ -1692,11 +1691,15 @@ function updateSoundscape() {
                 });
             }
         } else {
-            // Play YouTube Iframe (using youtube-nocookie to mitigate Error 150/153 on some browsers)
-            if (ytPlayer) {
-                ytPlayer.style.display = 'block';
-                // Using youtube-nocookie and passing an origin param to help bypass restrictions
-                ytPlayer.src = "https://www.youtube-nocookie.com/embed/" + val + "?autoplay=1&origin=" + encodeURIComponent(window.location.origin || "http://localhost");
+            // Show YouTube thumbnail link (to bypass Error 153 on local file embeds)
+            if (ytCover) {
+                const img = document.getElementById('youtube-cover-img');
+                const link = document.getElementById('youtube-cover-link');
+                if (img && link) {
+                    img.src = "https://img.youtube.com/vi/" + val + "/mqdefault.jpg";
+                    link.href = "https://www.youtube.com/watch?v=" + val;
+                    ytCover.style.display = 'block';
+                }
             }
         }
     }

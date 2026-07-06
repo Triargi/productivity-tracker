@@ -130,7 +130,14 @@
                             </select>
                             
                             <div style="margin-top: 1rem; border-radius: 12px; overflow: hidden; border: 1px solid rgba(255,255,255,0.05); background: rgba(0,0,0,0.5);">
-                                <iframe id="youtube-player" width="100%" height="120" src="" title="HushChords Radio" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen style="display: block;"></iframe>
+                                <div id="youtube-cover" style="display: none; position: relative; width: 100%; height: 120px;">
+                                    <img id="youtube-cover-img" src="" style="width: 100%; height: 100%; object-fit: cover; display: block; filter: brightness(0.6);">
+                                    <a id="youtube-cover-link" href="" target="_blank" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; text-decoration: none; transition: all 0.3s;">
+                                        <div style="background: rgba(0,0,0,0.7); padding: 0.5rem 1rem; border-radius: 20px; display: flex; align-items: center; gap: 0.5rem; color: #fff; font-size: 0.9rem; border: 1px solid rgba(255,255,255,0.2); cursor: pointer;">
+                                            <i class="ph ph-play-circle" style="font-size: 1.3rem; color: #00f2fe;"></i> Open in YouTube
+                                        </div>
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
