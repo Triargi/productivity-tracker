@@ -59,7 +59,16 @@
         <!-- Main Content -->
         <main class="main-content">
             <!-- Dashboard View -->
-            <div id="view-dashboard" class="view-section active-view">
+            <div id="view-dashboard" class="view-section active-view" style="display: flex; flex-direction: column; height: 100%; padding-top: 0;">
+                
+                <!-- Greeting & Quote -->
+                <div id="dashboard-greeting" style="text-align: center; margin-bottom: 1.5rem;">
+                    <h1 style="font-size: 2rem; margin: 0; background: linear-gradient(90deg, #fff, var(--accent-color)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-shadow: 0 0 20px rgba(138, 43, 226, 0.3);" id="greeting-text">Welcome Back!</h1>
+                    <p style="color: var(--text-secondary); font-style: italic; margin-top: 0.5rem; font-size: 0.95rem;" id="greeting-quote">"Focus on being productive instead of busy."</p>
+                </div>
+
+                <div style="display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 2rem; flex: 1; overflow-y: auto; padding-right: 0.5rem;" class="custom-scrollbar">
+
             <!-- Pomodoro Section -->
             <section class="pomodoro-section glass-panel" style="position: relative;">
                 <button id="zen-mode-btn" title="Toggle Zen Mode"><i class="ph ph-corners-out"></i></button>
@@ -114,16 +123,24 @@
 
                     <div style="height: 1px; background: rgba(255,255,255,0.1); margin: 0.5rem 0 1rem 0;"></div>
 
-                    <a href="https://www.youtube.com/watch?v=wsB8ej3Jon4&list=RDwsB8ej3Jon4&start_radio=1" target="_blank" style="display: flex; align-items: center; gap: 1rem; padding: 0.5rem; border-radius: 8px; text-decoration: none; color: white; transition: background 0.3s;" onmouseover="this.style.background='rgba(255,255,255,0.05)'" onmouseout="this.style.background='transparent'">
-                        <div style="position: relative; flex-shrink: 0;">
-                            <img src="https://img.youtube.com/vi/wsB8ej3Jon4/mqdefault.jpg" alt="Focus Music" style="width: 70px; height: 50px; object-fit: cover; border-radius: 8px;">
-                            <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(0,0,0,0.6); border-radius: 50%; padding: 4px; display: flex;">
-                                <i class="ph ph-youtube-logo" style="color: #ff0000; font-size: 1.2rem;"></i>
+                    <a href="https://www.youtube.com/watch?v=wsB8ej3Jon4&list=RDwsB8ej3Jon4&start_radio=1" target="_blank" style="display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 0.75rem; border-radius: 12px; text-decoration: none; color: white; background: rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.05); transition: all 0.3s;" onmouseover="this.style.background='rgba(0,0,0,0.6)'; this.style.borderColor='rgba(255,255,255,0.1)'" onmouseout="this.style.background='rgba(0,0,0,0.4)'; this.style.borderColor='rgba(255,255,255,0.05)'">
+                        <div style="display: flex; align-items: center; gap: 1rem;">
+                            <div style="position: relative; flex-shrink: 0;">
+                                <img src="https://img.youtube.com/vi/wsB8ej3Jon4/mqdefault.jpg" alt="Focus Music" style="width: 60px; height: 60px; object-fit: cover; border-radius: 10px; opacity: 0.8;">
+                                <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(255,0,0,0.9); border-radius: 50%; width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 10px rgba(255,0,0,0.5);">
+                                    <i class="ph-fill ph-play" style="color: white; font-size: 0.8rem; margin-left: 2px;"></i>
+                                </div>
+                            </div>
+                            <div>
+                                <h4 style="margin: 0; font-size: 0.95rem; font-weight: 600; color: #fff;">Lofi Focus Beat</h4>
+                                <p style="margin: 0.2rem 0 0 0; font-size: 0.75rem; color: var(--text-secondary); display: flex; align-items: center; gap: 4px;"><i class="ph ph-youtube-logo" style="color: #ff0000;"></i> Live Stream</p>
                             </div>
                         </div>
-                        <div>
-                            <h4 style="margin: 0; font-size: 0.9rem; font-weight: 600;">Focus Playlist</h4>
-                            <p style="margin: 0.1rem 0 0 0; font-size: 0.75rem; color: var(--text-secondary);">Play on YouTube</p>
+                        <div class="sound-wave" style="margin-right: 0.5rem; opacity: 0.5;">
+                            <div class="bar"></div>
+                            <div class="bar"></div>
+                            <div class="bar"></div>
+                            <div class="bar"></div>
                         </div>
                     </a>
                 </div>
@@ -132,12 +149,31 @@
             <!-- Dashboard Right Column (Mini Tasks & Gamification) -->
             <section class="dashboard-widgets" style="display: flex; flex-direction: column; gap: 1.5rem;">
                 
+                
+                <!-- Today's One Thing -->
+                <div class="glass-panel" style="padding: 1.5rem; position: relative; overflow: hidden;">
+                    <div style="position: absolute; top: -20px; right: -20px; font-size: 5rem; opacity: 0.05; pointer-events: none;">🎯</div>
+                    <h4 style="margin: 0 0 0.5rem 0; color: var(--accent-color); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1.5px; font-weight: 700;">Today's One Thing</h4>
+                    <input type="text" id="one-thing-input" placeholder="What is your main focus today?" style="width: 100%; background: transparent; border: none; border-bottom: 2px solid rgba(255,255,255,0.1); color: var(--text-primary); font-size: 1.1rem; padding: 0.5rem 0; outline: none; transition: border-color 0.3s;" onfocus="this.style.borderColor='var(--accent-color)'" onblur="this.style.borderColor='rgba(255,255,255,0.1)'">
+                </div>
+
                 <!-- Focus Tree Gamification -->
                 <div id="dashboard-tree-container" class="glass-panel" style="text-align: center; display: flex; align-items: center; justify-content: center; gap: 1rem; padding: 1.5rem;">
                     <div id="dashboard-tree-icon" style="font-size: 3rem; filter: drop-shadow(0 0 15px rgba(16, 185, 129, 0.4)); transition: all 0.5s;">🌱</div>
                     <div style="text-align: left;">
                         <h4 style="margin: 0; font-size: 1.1rem; color: var(--text-primary);">Focus Tree</h4>
                         <p style="margin: 0; font-size: 0.85rem; color: var(--text-secondary);" id="dashboard-tree-status">Complete Pomodoros to grow your tree!</p>
+                    </div>
+                </div>
+
+                <!-- Mini Weekly Streak -->
+                <div class="glass-panel" style="padding: 1.5rem;">
+                    <h4 style="margin: 0 0 1rem 0; font-size: 0.9rem; color: var(--text-primary); font-weight: 600; display: flex; justify-content: space-between;">
+                        <span>🔥 Weekly Streak</span>
+                        <span style="color: var(--text-secondary); font-size: 0.8rem; font-weight: normal;">Last 7 Days</span>
+                    </h4>
+                    <div id="weekly-streak-container" style="display: flex; justify-content: space-between; gap: 0.25rem;">
+                        <!-- JS generated streak days -->
                     </div>
                 </div>
 
@@ -151,8 +187,15 @@
                         <!-- JS will populate this with 3-5 todo tasks -->
                     </ul>
                 </div>
-            </section>
 
+                <!-- Quick Brain Dump -->
+                <div class="glass-panel" style="padding: 1.5rem; display: flex; flex-direction: column;">
+                    <h4 style="margin: 0 0 0.5rem 0; font-size: 0.9rem; color: var(--text-primary);"><i class="ph ph-note-pencil"></i> Brain Dump</h4>
+                    <textarea id="brain-dump-input" placeholder="Jot down quick thoughts here so you don't lose focus..." style="width: 100%; background: rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: var(--text-primary); padding: 0.75rem; font-family: inherit; resize: vertical; outline: none; min-height: 80px; transition: border-color 0.3s;" onfocus="this.style.borderColor='var(--accent-color)'" onblur="this.style.borderColor='rgba(255,255,255,0.1)'"></textarea>
+                </div>
+
+            </section>
+                </div> <!-- End of grid -->
             </div>
             
             <!-- Project Hub View -->

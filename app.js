@@ -1532,3 +1532,94 @@ function renderGantt() {
 
     wrapper.innerHTML = html;
 }
+/ /  
+ N e w  
+ D a s h b o a r d  
+ W i d g e t s  
+ L o g i c  
+ 
+
+// --- Dashboard Widgets Logic ---
+function initDashboardWidgets() {
+    // 1. Dynamic Greeting
+    const greetingText = document.getElementById('greeting-text');
+    const greetingQuote = document.getElementById('greeting-quote');
+    const hour = new Date().getHours();
+    
+    let greeting = 'Welcome Back!';
+    if (hour < 12) greeting = 'Good Morning!';
+    else if (hour < 18) greeting = 'Good Afternoon!';
+    else greeting = 'Good Evening!';
+    
+    if (greetingText) greetingText.textContent = greeting;
+
+    const quotes = [
+        "Focus on being productive instead of busy.",
+        "Strive for progress, not perfection.",
+        "Your future is created by what you do today.",
+        "Action is the foundational key to all success.",
+        "Simplicity boils down to two steps: Identify the essential. Eliminate the rest."
+    ];
+    if (greetingQuote) greetingQuote.textContent = '"' + quotes[Math.floor(Math.random() * quotes.length)] + '"';
+
+    // 2. One Thing Input
+    const oneThingInput = document.getElementById('one-thing-input');
+    if (oneThingInput) {
+        oneThingInput.value = localStorage.getItem('protrack_onething') || '';
+        oneThingInput.addEventListener('input', (e) => {
+            localStorage.setItem('protrack_onething', e.target.value);
+        });
+    }
+
+    // 3. Brain Dump Input
+    const brainDumpInput = document.getElementById('brain-dump-input');
+    if (brainDumpInput) {
+        brainDumpInput.value = localStorage.getItem('protrack_braindump') || '';
+        brainDumpInput.addEventListener('input', (e) => {
+            localStorage.setItem('protrack_braindump', e.target.value);
+        });
+    }
+
+    // 4. Weekly Streak
+    renderWeeklyStreak();
+}
+
+function renderWeeklyStreak() {
+    const streakContainer = document.getElementById('weekly-streak-container');
+    if (!streakContainer) return;
+    
+    streakContainer.innerHTML = '';
+    const today = new Date();
+    today.setHours(0,0,0,0);
+    
+    const days = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
+    
+    // Get last 7 days
+    for (let i = 6; i >= 0; i--) {
+        const d = new Date(today);
+        d.setDate(d.getDate() - i);
+        const dateStr = d.toDateString();
+        
+        const dayStat = dailyStats.find(s => s.date === dateStr);
+        const hasFocus = dayStat && dayStat.pomodoros > 0;
+        
+        const dayName = days[d.getDay()];
+        
+        const color = hasFocus ? 'var(--accent-color)' : 'rgba(255,255,255,0.1)';
+        const shadow = hasFocus ? '0 0 10px var(--accent-glow)' : 'none';
+        
+        streakContainer.innerHTML += `
+            <div style="display: flex; flex-direction: column; align-items: center; gap: 0.5rem;">
+                <div style="width: 30px; height: 30px; border-radius: 50%; background: ${color}; box-shadow: ${shadow}; display: flex; justify-content: center; align-items: center; font-size: 0.8rem; transition: all 0.3s;">
+                    ${hasFocus ? '🔥' : ''}
+                </div>
+                <span style="font-size: 0.7rem; color: var(--text-secondary);">${dayName}</span>
+            </div>
+        `;
+    }
+}
+
+// Ensure it runs on load
+document.addEventListener('DOMContentLoaded', () => {
+    setTimeout(initDashboardWidgets, 500); // Wait for loadData
+});
