@@ -1314,10 +1314,19 @@ if (pipCanvas && pipVideo) {
         pipVideo.srcObject = stream;
         pipVideo.play().catch(e => console.log('PiP video play delayed until interaction', e));
         
+
         // Ensure video plays when user interacts (Start timer)
         document.getElementById('start-btn').addEventListener('click', () => {
             pipVideo.play().catch(e => {});
         });
+        
+        // Fallback for auto PiP if attribute is ignored
+        document.addEventListener("visibilitychange", () => {
+            if (document.visibilityState === "hidden" && !document.pictureInPictureElement) {
+                pipVideo.requestPictureInPicture().catch(e => console.log("Manual PiP fallback failed", e));
+            }
+        });
+
     } catch (error) {
         console.error('Failed to setup Auto PiP', error);
     }
