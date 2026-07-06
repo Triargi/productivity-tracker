@@ -1234,7 +1234,7 @@ applyTheme(savedTheme);
 
 // --- Zen Mode Logic ---
 const zenBtn = document.getElementById('zen-mode-btn');
-const exitZenBtn = document.getElementById('exit-zen-btn');
+
 let zenActive = false;
 
 function performZenToggle() {
@@ -1242,11 +1242,11 @@ function performZenToggle() {
     if (zenActive) {
         document.body.classList.add('zen-active');
         
-        if (exitZenBtn) exitZenBtn.style.display = 'flex';
+        
     } else {
         document.body.classList.remove('zen-active');
         
-        if (exitZenBtn) exitZenBtn.style.display = 'none';
+        
     }
 }
 
@@ -1261,7 +1261,7 @@ function toggleZenMode() {
 }
 
 if (zenBtn) zenBtn.addEventListener('click', toggleZenMode);
-if (exitZenBtn) exitZenBtn.addEventListener('click', toggleZenMode);
+
 function openJournalModal() {
     if (!journalOverlay || !journalInput) return;
     journalOverlay.style.display = 'flex';
