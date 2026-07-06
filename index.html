@@ -62,15 +62,15 @@
             <div id="view-dashboard" class="view-section active-view" style="display: flex; flex-direction: column; height: 100%; padding-top: 0; overflow: hidden;">
                 
                 <!-- Greeting & Quote -->
-                <div id="dashboard-greeting" style="text-align: center; margin-bottom: 1.5rem; flex-shrink: 0;">
-                    <h1 style="font-size: 2rem; margin: 0; background: linear-gradient(90deg, #fff, var(--accent-color)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-shadow: 0 0 20px rgba(138, 43, 226, 0.3);" id="greeting-text">Welcome Back!</h1>
-                    <p style="color: var(--text-secondary); font-style: italic; margin-top: 0.5rem; font-size: 0.95rem;" id="greeting-quote">"Focus on being productive instead of busy."</p>
+                <div id="dashboard-greeting" style="text-align: left; margin-bottom: 2rem; flex-shrink: 0; padding-left: 0.5rem;">
+                    <h1 style="font-size: 2.2rem; margin: 0; background: linear-gradient(90deg, #fff, var(--accent-color)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-shadow: 0 0 20px rgba(138, 43, 226, 0.3);" id="greeting-text">Welcome Back!</h1>
+                    <p style="color: var(--text-secondary); font-style: italic; margin-top: 0.25rem; font-size: 1rem;" id="greeting-quote">"Focus on being productive instead of busy."</p>
                 </div>
 
                 <div style="display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 2rem; flex: 1; min-height: 0;">
 
             <!-- Pomodoro Section -->
-            <section class="pomodoro-section glass-panel" style="position: relative; height: 100%; overflow-y: auto; justify-content: flex-start;">
+            <section class="pomodoro-section glass-panel custom-scrollbar" style="position: relative; height: 100%; overflow-y: auto; justify-content: center;">
                 <button id="zen-mode-btn" title="Toggle Zen Mode"><i class="ph ph-corners-out"></i></button>
                 <div class="section-header" style="flex-direction: column; gap: 1rem; align-items: stretch; margin-bottom: 2.5rem;">
                     <h2 style="text-align: center;">Focus Timer</h2>
@@ -150,19 +150,23 @@
             <section class="dashboard-widgets custom-scrollbar" style="display: flex; flex-direction: column; gap: 1.5rem; height: 100%; overflow-y: auto; padding-right: 0.5rem;">
                 
                 
-                <!-- Today's One Thing -->
-                <div class="glass-panel" style="padding: 1.5rem; position: relative; overflow: hidden;">
-                    <div style="position: absolute; top: -20px; right: -20px; font-size: 5rem; opacity: 0.05; pointer-events: none;">🎯</div>
-                    <h4 style="margin: 0 0 0.5rem 0; color: var(--accent-color); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1.5px; font-weight: 700;">Today's One Thing</h4>
-                    <input type="text" id="one-thing-input" placeholder="What is your main focus today?" style="width: 100%; background: transparent; border: none; border-bottom: 2px solid rgba(255,255,255,0.1); color: var(--text-primary); font-size: 1.1rem; padding: 0.5rem 0; outline: none; transition: border-color 0.3s;" onfocus="this.style.borderColor='var(--accent-color)'" onblur="this.style.borderColor='rgba(255,255,255,0.1)'">
-                </div>
+                <!-- Combined Header Widget: One Thing & Focus Tree -->
+                <div class="glass-panel" style="position: relative; overflow: hidden; display: flex; flex-direction: column; padding: 1.5rem;">
+                    <div style="position: absolute; top: -20px; right: -20px; font-size: 8rem; opacity: 0.03; pointer-events: none;">🎯</div>
+                    
+                    <!-- Today's One Thing -->
+                    <div style="margin-bottom: 1.5rem;">
+                        <h4 style="margin: 0 0 0.5rem 0; color: var(--accent-color); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1.5px; font-weight: 700;">Today's One Thing</h4>
+                        <input type="text" id="one-thing-input" placeholder="What is your main focus today?" style="width: 100%; background: transparent; border: none; border-bottom: 2px solid rgba(255,255,255,0.1); color: var(--text-primary); font-size: 1.1rem; padding: 0.5rem 0; outline: none; transition: border-color 0.3s;" onfocus="this.style.borderColor='var(--accent-color)'" onblur="this.style.borderColor='rgba(255,255,255,0.1)'">
+                    </div>
 
-                <!-- Focus Tree Gamification -->
-                <div id="dashboard-tree-container" class="glass-panel" style="text-align: center; display: flex; align-items: center; justify-content: center; gap: 1rem; padding: 1.5rem;">
-                    <div id="dashboard-tree-icon" style="font-size: 3rem; filter: drop-shadow(0 0 15px rgba(16, 185, 129, 0.4)); transition: all 0.5s;">🌱</div>
-                    <div style="text-align: left;">
-                        <h4 style="margin: 0; font-size: 1.1rem; color: var(--text-primary);">Focus Tree</h4>
-                        <p style="margin: 0; font-size: 0.85rem; color: var(--text-secondary);" id="dashboard-tree-status">Complete Pomodoros to grow your tree!</p>
+                    <!-- Focus Tree Gamification -->
+                    <div id="dashboard-tree-container" style="display: flex; align-items: center; gap: 1rem; padding-top: 1.5rem; border-top: 1px solid rgba(255,255,255,0.05);">
+                        <div id="dashboard-tree-icon" style="font-size: 2.5rem; filter: drop-shadow(0 0 15px rgba(16, 185, 129, 0.4)); transition: all 0.5s;">🌱</div>
+                        <div style="text-align: left;">
+                            <h4 style="margin: 0; font-size: 1rem; color: var(--text-primary);">Focus Tree</h4>
+                            <p style="margin: 0; font-size: 0.8rem; color: var(--text-secondary);" id="dashboard-tree-status">Complete Pomodoros to grow your tree!</p>
+                        </div>
                     </div>
                 </div>
 
