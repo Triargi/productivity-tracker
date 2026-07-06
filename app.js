@@ -1588,6 +1588,7 @@ function renderWeeklyStreak() {
     today.setHours(0,0,0,0);
     
     const days = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
+    const dailyStats = JSON.parse(localStorage.getItem('protrack_dailystats') || '[]');
     
     // Get last 7 days
     for (let i = 6; i >= 0; i--) {
@@ -1606,7 +1607,7 @@ function renderWeeklyStreak() {
         streakContainer.innerHTML += `
             <div style="display: flex; flex-direction: column; align-items: center; gap: 0.5rem;">
                 <div style="width: 30px; height: 30px; border-radius: 50%; background: ${color}; box-shadow: ${shadow}; display: flex; justify-content: center; align-items: center; font-size: 0.8rem; transition: all 0.3s;">
-                    ${hasFocus ? '🔥' : ''}
+                    ${hasFocus ? '&#x1F525;' : ''}
                 </div>
                 <span style="font-size: 0.7rem; color: var(--text-secondary);">${dayName}</span>
             </div>

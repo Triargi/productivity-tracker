@@ -83,13 +83,6 @@ body {
     scrollbar-width: thin;
     scrollbar-color: var(--accent-color) transparent;
 }
-.glass-panel::-webkit-scrollbar {
-    width: 6px;
-}
-.glass-panel::-webkit-scrollbar-thumb {
-    background-color: var(--accent-color);
-    border-radius: 10px;
-}
 
 /* Sidebar */
 .sidebar {
