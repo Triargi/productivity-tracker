@@ -77,9 +77,7 @@
                 
                 <!-- Hero Section (Top) -->
                 <section class="hero-section glass-panel" style="display: flex; justify-content: space-between; align-items: center; padding: 2.5rem 4rem; margin-bottom: 2rem; border-radius: 32px; position: relative;">
-                    <button id="zen-mode-btn" style="position: absolute; top: 1.5rem; right: 1.5rem; background: rgba(255,255,255,0.05); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.1); border-radius: 50%; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; color: var(--text-secondary); font-size: 1.2rem; cursor: pointer; transition: all 0.3s ease; z-index: 10;" title="Full Screen (Zen Mode)" onmouseover="this.style.background='rgba(255,255,255,0.1)'; this.style.color='var(--text-primary)'; this.style.transform='scale(1.1)';" onmouseout="this.style.background='rgba(255,255,255,0.05)'; this.style.color='var(--text-secondary)'; this.style.transform='scale(1)';">
-                        <i class="ph ph-corners-out"></i>
-                    </button>
+                    
                     <!-- Left: Modes -->
                     <div class="hero-modes" style="flex: 1; display: flex; flex-direction: column; gap: 0.75rem; max-width: 200px;">
                         <button class="mode-btn active" data-mode="pomodoro" style="text-align: left; padding: 0.75rem 1.25rem;"><i class="ph ph-timer"></i> Pomodoro</button>
@@ -94,6 +92,7 @@
                         <div class="timer-controls" style="display: flex; align-items: center; gap: 1rem;">
                             <button class="control-btn secondary" id="reset-btn" style="border-radius: 50%; width: 44px; height: 44px; padding: 0; display: flex; align-items: center; justify-content: center; background: rgba(255,255,255,0.05); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.1); font-size: 1.2rem;" title="Restart Timer"><i class="ph ph-arrow-counter-clockwise"></i></button>
                             <button class="control-btn primary" id="start-btn" style="padding: 0.8rem 2.5rem; font-size: 1.2rem; border-radius: 60px; box-shadow: 0 8px 32px rgba(138, 43, 226, 0.5); font-weight: 700; letter-spacing: 1px;"><i class="ph ph-play"></i> Start</button>
+                              <button id="zen-mode-btn" class="control-btn secondary" style="border-radius: 50%; width: 44px; height: 44px; padding: 0; display: flex; align-items: center; justify-content: center; background: rgba(255,255,255,0.05); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.1); font-size: 1.2rem;" title="Fullscreen (Zen Mode)"><i class="ph ph-corners-out"></i></button>
                             
                         </div>
                     </div>
@@ -133,7 +132,7 @@
                 <section class="dashboard-bottom-grid" style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; align-items: stretch; flex: 1;">
                     
                     <!-- Column 1 -->
-                    <div style="display: flex; flex-direction: column; gap: 1rem; height: 100%;">
+                    <div style="display: flex; flex-direction: column; gap: 1rem; height: 100%; min-height: 0;">
                         <!-- Combined Header Widget: One Thing & Focus Tree -->
                         <div class="glass-panel" style="flex: 1; position: relative; overflow: hidden; display: flex; flex-direction: column; justify-content: center; padding: 1.5rem; transition: transform 0.3s ease, box-shadow 0.3s ease;" onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 12px 40px rgba(0,0,0,0.4)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 8px 32px 0 rgba(0, 0, 0, 0.3)'">
                             <div style="position: absolute; top: -20px; right: -20px; font-size: 8rem; opacity: 0.03; pointer-events: none;">🎯</div>
@@ -167,7 +166,7 @@
                     </div>
                     
                     <!-- Column 2 -->
-                    <div style="display: flex; flex-direction: column; gap: 1rem; height: 100%;">
+                    <div style="display: flex; flex-direction: column; gap: 1rem; height: 100%; min-height: 0;">
                         <!-- Up Next Widget -->
                         <div class="glass-panel" style="flex: 1; display: flex; flex-direction: column; transition: transform 0.3s ease, box-shadow 0.3s ease; min-height: 0;" onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 12px 40px rgba(0,0,0,0.4)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 8px 32px 0 rgba(0, 0, 0, 0.3)'">
                             <div class="section-header" style="margin-bottom: 1rem;">
@@ -181,7 +180,7 @@
                     </div>
                     
                     <!-- Column 3 -->
-                    <div style="display: flex; flex-direction: column; gap: 1rem; height: 100%;">
+                    <div style="display: flex; flex-direction: column; gap: 1rem; height: 100%; min-height: 0;">
                         <!-- Quick Brain Dump -->
                         <div class="glass-panel" style="flex: 1; padding: 1.5rem; display: flex; flex-direction: column; transition: transform 0.3s ease, box-shadow 0.3s ease; min-height: 0;" onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 12px 40px rgba(0,0,0,0.4)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 8px 32px 0 rgba(0, 0, 0, 0.3)'">
                             <h4 style="margin: 0 0 0.5rem 0; font-size: 0.9rem; color: var(--text-primary);"><i class="ph ph-note-pencil"></i> Brain Dump</h4>
@@ -358,7 +357,7 @@
             </div>
             
             <!-- Daily Quote -->
-            <div id="daily-quote-container" style="margin-top: auto; padding: 1rem; text-align: center; color: var(--text-secondary); opacity: 0.8; transition: opacity 0.3s; font-style: italic; font-size: 0.95rem;">
+            <div id="daily-quote-container" style="display: none !important; margin-top: auto; padding: 1rem; text-align: center; color: var(--text-secondary); opacity: 0.8; transition: opacity 0.3s; font-style: italic; font-size: 0.95rem;">
                 <p id="daily-quote-text" style="margin: 0; line-height: 1.5; font-family: 'Space Grotesk', sans-serif;">"Loading inspiration..."</p>
                 <div style="margin-top: 0.5rem; font-size: 0.75rem; color: rgba(255,255,255,0.3);">Press <kbd style="background: rgba(255,255,255,0.1); padding: 0.2rem 0.4rem; border-radius: 4px; font-family: monospace;">Ctrl+K</kbd> to open Command Palette</div>
             </div>
