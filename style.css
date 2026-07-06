@@ -920,3 +920,10 @@ body.zen-active {
 
 .custom-scrollbar::-webkit-scrollbar { display: none; }
 .custom-scrollbar { scrollbar-width: none; -ms-overflow-style: none; }
+
+#exit-zen-btn:hover {
+    background: rgba(255, 100, 100, 0.2) !important;
+    color: #ff6b6b !important;
+    border-color: rgba(255, 100, 100, 0.4) !important;
+    transform: scale(1.1);
+}
