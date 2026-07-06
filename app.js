@@ -1618,4 +1618,30 @@ function renderWeeklyStreak() {
 // Ensure it runs on load
 document.addEventListener('DOMContentLoaded', () => {
     setTimeout(initDashboardWidgets, 500); // Wait for loadData
+    startClock();
 });
+
+function startClock() {
+    const dateEl = document.getElementById('header-date');
+    const timeEl = document.getElementById('header-time');
+    if (!dateEl || !timeEl) return;
+    
+    function update() {
+        const now = new Date();
+        const options = { weekday: 'long', day: 'numeric', month: 'long' };
+        dateEl.textContent = now.toLocaleDateString('en-US', options);
+        
+        let hours = now.getHours();
+        let minutes = now.getMinutes();
+        let ampm = hours >= 12 ? 'PM' : 'AM';
+        hours = hours % 12;
+        hours = hours ? hours : 12; // the hour '0' should be '12'
+        minutes = minutes < 10 ? '0'+minutes : minutes;
+        
+        timeEl.innerHTML = `<i class="ph ph-clock"></i> ${hours}:${minutes} ${ampm}`;
+    }
+    
+    update();
+    setInterval(update, 60000);
+}
+
