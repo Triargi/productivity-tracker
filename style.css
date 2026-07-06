@@ -80,8 +80,11 @@ body {
     padding: 2rem;
     box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
     overflow-y: auto;
-    scrollbar-width: thin;
-    scrollbar-color: var(--accent-color) transparent;
+    scrollbar-width: none; /* Hide scrollbar Firefox */
+    -ms-overflow-style: none; /* Hide scrollbar IE/Edge */
+}
+.glass-panel::-webkit-scrollbar {
+    display: none; /* Hide scrollbar Chrome/Safari */
 }
 
 /* Sidebar */
@@ -924,5 +927,5 @@ body.zen-active {
     50% { height: 15px; }
 }
 
-.custom-scrollbar::-webkit-scrollbar { width: 4px; }
-.custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 4px; }
+.custom-scrollbar::-webkit-scrollbar { display: none; }
+.custom-scrollbar { scrollbar-width: none; -ms-overflow-style: none; }
