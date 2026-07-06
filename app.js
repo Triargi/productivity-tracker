@@ -1655,3 +1655,38 @@ function startClock() {
     setInterval(update, 60000);
 }
 
+
+
+
+// --- Ambient Soundscape Logic ---
+const ambientSoundToggle = document.getElementById('ambient-toggle');
+const ambientSoundSelect = document.getElementById('ambient-select');
+let currentAmbientAudio = null;
+
+function playAmbientSound() {
+    if (currentAmbientAudio) {
+        currentAmbientAudio.pause();
+        currentAmbientAudio.currentTime = 0;
+    }
+    
+    if (ambientSoundToggle && ambientSoundToggle.checked) {
+        const soundType = ambientSoundSelect.value;
+        currentAmbientAudio = document.getElementById('audio-' + soundType);
+        if (currentAmbientAudio) {
+            currentAmbientAudio.volume = 0.5; // default volume
+            currentAmbientAudio.play().catch(e => {
+                console.error("Audio playback blocked by browser. Please interact with the document first.", e);
+                ambientSoundToggle.checked = false; // Turn off toggle if blocked
+            });
+        }
+    }
+}
+
+if (ambientSoundToggle && ambientSoundSelect) {
+    ambientSoundToggle.addEventListener('change', playAmbientSound);
+    ambientSoundSelect.addEventListener('change', () => {
+        if (ambientSoundToggle.checked) {
+            playAmbientSound();
+        }
+    });
+}
